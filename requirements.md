@@ -2,7 +2,7 @@
 
 **Version:** 1.0
 **Date:** June 13, 2025
-**Prepared for:** African Job Board Development Team (6 Members)
+**Prepared for:** African Job Board Development Team (7 Members)
 
 ---
 
@@ -131,7 +131,7 @@ The MVP will focus on building the core features necessary to launch a functiona
 ### Constraints
 
 * 30-day MVP delivery
-* Team of 6 with varied skills
+* Team of 7 with varied skills
 * Limited budget — open-source tools only
 
 ### Assumptions
