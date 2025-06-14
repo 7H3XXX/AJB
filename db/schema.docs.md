@@ -69,13 +69,13 @@ Holds all active and past job postings.
 | `id`               | UUID (PK) | Unique ID                                                                               |
 | `organisation_id`  | UUID (FK) | References `organisations(id)`                                                          |
 | `posted_by`        | UUID (FK) | References `users(id)` (employer/admin)                                                 |
+| `category_id`      | UUID (FK) | References `job_categories(id)`                                                         |
 | `title`            | String    | Job title                                                                               |
 | `description`      | Text      | Full job description                                                                    |
 | `requirements`     | Text      | Job requirements                                                                        |
 | `pay_per_annum`    | Decimal   | Expected salary range                                                                   |
 | `country`          | String    | Location                                                                                |
 | `website`          | String    | External application link/URL                                                           |
-| `category_id`      | UUID (FK) | References `job_categories(id)`                                                         |
 | `experience_level` | String    | e.g. 'entry', 'mid', 'senior'                                                           |
 | `type`             | String    | Type of employment (e.g. 'full-time', 'part-time', 'freelance', 'internship', 'remote') |
 | `created_at`       | Timestamp | Posting date                                                                            |
