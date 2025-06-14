@@ -57,6 +57,8 @@ CREATE TABLE job_listings (
     website TEXT,
     experience_level VARCHAR(50),
     type VARCHAR(50),
+    status VARCHAR(20) CHECK (role IN ('created', 'approved', 'rejected')),
+    is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

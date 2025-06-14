@@ -78,6 +78,8 @@ Holds all active and past job postings.
 | `website`          | String    | External application link/URL                                                           |
 | `experience_level` | String    | e.g. 'entry', 'mid', 'senior'                                                           |
 | `type`             | String    | Type of employment (e.g. 'full-time', 'part-time', 'freelance', 'internship', 'remote') |
+| `status`           | String    | Listing status (e.g. 'created', 'approved', 'rejected')                                 |
+| `is_active`        | Boolean   | Describes if the listing is actively accepting applications                             |
 | `created_at`       | Timestamp | Posting date                                                                            |
 | `updated_at`       | Timestamp | Last update                                                                             |
 
