@@ -1,0 +1,50 @@
+# === Node.js ===
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist/
+build/
+.cache/
+.next/
+.vite/
+.env
+.env.*
+
+# === VSCode and Editors ===
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# === OS / System Files ===
+.DS_Store
+Thumbs.db
+
+# === Git / Logs ===
+*.log
+*.pid
+*.seed
+*.pid.lock
+*.swp
+*.bak
+*.tmp
+
+# === Docker ===
+*.tar
+docker-compose.override.yml
+
+# === Builds / Artifacts ===
+*.tgz
+*.zip
+*.gz
+
+# === Senisitive ===
+*.sqlite3
+*.db
+*.pem
+*.crt
+*.key
+
+# === Project specific ===
+# Add custom exclusions here
