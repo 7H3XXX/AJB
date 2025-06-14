@@ -189,3 +189,22 @@ The MVP will focus on building the core features necessary to launch a functiona
 
 ---
 
+## 🧱 13. Other resources
+
+### UX inspiration
+
+* Here it's for the job search. The first image is close to the look and feel we are looking for.
+The other one is easier to navigate.
+
+![ux-inspi-ajb-2](https://github.com/user-attachments/assets/e256e750-d630-40cc-a1ab-4a739230dba0)
+![ux-inspi-ajb-1](https://github.com/user-attachments/assets/990186ae-e5a6-4662-a393-73810e5c277b)
+
+### UI inspiration
+
+* Here it's more about the design elements and the mood. It's all white as most apps are today.
+It conveys both hope and culture, making it close to our form of expression.
+
+![ui-inspi-ajb-2](https://github.com/user-attachments/assets/de70af8b-4978-4f05-9484-9c63eba22917)
+![ui-inspi-ajb-1](https://github.com/user-attachments/assets/e291f2e5-548c-4683-a7a3-8084e611b9cf)
+
+
