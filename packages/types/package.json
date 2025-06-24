@@ -1,0 +1,26 @@
+{
+  "name": "@repo/types",
+  "version": "1.0.0",
+  "description": "Shared types package",
+  "main": "./dist/main.js",
+  "module": "./dist/main.mjs",
+  "types": "./dist/main.d.ts",
+  "scripts": {
+    "build": "tsup src/main.ts --format esm,cjs --dts",
+    "dev": "tsup src/main.ts --format esm,cjs --dts --watch"
+  },
+  "devDependencies": {
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/main.d.ts",
+      "import": "./dist/main.mjs",
+      "require": "./dist/main.js"
+    }
+  }
+}
