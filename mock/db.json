@@ -1,0 +1,48 @@
+{
+  "jobs": [
+    {
+      "id": 1,
+      "title": "Frontend Developer",
+      "company": "TechFlow",
+      "location": "Remote",
+      "salary": "$60,000 - $75,000",
+      "type": "Full-time",
+      "description": "Build UI components with React.",
+      "skills": ["React", "CSS", "JavaScript"],
+      "postedDate": "2025-06-24"
+    },
+    {
+      "id": 2,
+      "title": "Backend Developer",
+      "company": "CodeNest",
+      "location": "Lagos, Nigeria",
+      "salary": "$70,000 - $85,000",
+      "type": "Contract",
+      "description": "Work with Node.js and MongoDB.",
+      "skills": ["Node.js", "Express", "MongoDB"],
+      "postedDate": "2025-06-22"
+    },
+    {
+      "id": 3,
+      "title": "Data Analyst",
+      "company": "Insight Labs",
+      "location": "Remote",
+      "salary": "$50,000 - $70,000",
+      "type": "Part-time",
+      "description": "Analyze business data using SQL and Excel.",
+      "skills": ["SQL", "Excel", "Tableau"],
+      "postedDate": "2025-06-18"
+    },
+    {
+      "id": 4,
+      "title": "Product Manager",
+      "company": "InnovateNow",
+      "location": "Abuja, Nigeria",
+      "salary": "$80,000 - $100,000",
+      "type": "Full-time",
+      "description": "Lead product development cycles and roadmap planning.",
+      "skills": ["Agile", "Scrum", "Leadership"],
+      "postedDate": "2025-06-20"
+    }
+  ]
+}
