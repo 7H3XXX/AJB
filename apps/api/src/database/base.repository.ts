@@ -8,7 +8,7 @@
  * includes all the table/schema columns, irrespective of the defined
  * column keys (i.e. `returning` options) passed down to drizzle query.
  *
- * However that's not an invitation to try it out, feel free.
+ * However that's not an invitation NOT to try it out, feel free.
  */
 
 import {

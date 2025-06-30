@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import { config } from 'dotenv';
-import { randomUUID } from 'crypto';
 
 config({ path: '.env' });
 
@@ -38,6 +37,7 @@ export const envSchema = z.object({
   DATABASE_PWD: z.string(),
   DATABASE_HOST: z.string(),
   DATABASE_PORT: z.coerce.number().default(5432),
+  DATABASE_SSL: z.coerce.boolean().default(false),
   DEFAULT_PAGE_SIZE: z.coerce.number().default(25),
 
   // MinIO Configs

@@ -21,6 +21,7 @@ export const DBSchema = {
           database: env.DATABASE_NAME,
           password: env.DATABASE_PWD,
           port: env.DATABASE_PORT,
+          ssl: env.DATABASE_SSL,
         });
         return drizzle({
           client: pool,
