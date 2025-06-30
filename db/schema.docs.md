@@ -56,6 +56,7 @@ All available categories for selection
 | ------------ | --------- | ---------------------------------- |
 | `id`         | UUID (PK) | Unique ID                          |
 | `name`       | String    | Category name (e.g. 'Engineering') |
+| `icon_url`   | String    | Link to category icon              |
 | `created_at` | Timestamp | Creation date                      |
 
 ---
@@ -73,13 +74,16 @@ Holds all active and past job postings.
 | `title`            | String    | Job title                                                                               |
 | `description`      | Text      | Full job description                                                                    |
 | `requirements`     | Text      | Job requirements                                                                        |
-| `pay_per_annum`    | Decimal   | Expected salary range                                                                   |
-| `country`          | String    | Location                                                                                |
-| `website`          | String    | External application link/URL                                                           |
+| `salary_from`      | Decimal   | Expected salary range MIN                                                               |
+| `salary_to`        | Decimal   | Expected salary range MAX                                                               |
+| `currency`         | String    | Currency Enum (e.g. USD, AED ...)                                                       |
+| `country`          | String    | Listing Location: Country                                                               |
+| `city`             | String    | Listing Location: City                                                                  |
 | `experience_level` | String    | e.g. 'entry', 'mid', 'senior'                                                           |
 | `type`             | String    | Type of employment (e.g. 'full-time', 'part-time', 'freelance', 'internship', 'remote') |
 | `status`           | String    | Listing status (e.g. 'created', 'approved', 'rejected')                                 |
 | `is_active`        | Boolean   | Describes if the listing is actively accepting applications                             |
+| `website`          | String    | External application link/URL                                                           |
 | `created_at`       | Timestamp | Posting date                                                                            |
 | `updated_at`       | Timestamp | Last update                                                                             |
 
@@ -108,7 +112,7 @@ All available skills for selection.
 
 ---
 
-### `educational_backgrounds`
+<!-- ### `educational_backgrounds`
 
 Stores user's academic history.
 
@@ -124,9 +128,9 @@ Stores user's academic history.
 | `date_from`          | Date      | Start date               |
 | `date_to`            | Date      | End date                 |
 
----
+--- -->
 
-### `work_experiences`
+<!-- ### `work_experiences`
 
 Professional experiences per user.
 
@@ -141,9 +145,9 @@ Professional experiences per user.
 | `date_from`   | Date      | Start date             |
 | `date_to`     | Date      | End date               |
 
----
+--- -->
 
-### `resumes`
+<!-- ### `resumes`
 
 Resume directory for user-uploaded CVs.
 
@@ -155,8 +159,8 @@ Resume directory for user-uploaded CVs.
 | `file_type`   | String    | 'pdf' or 'docx'        |
 | `uploaded_at` | Timestamp | Upload date            |
 
----
-
+--- -->
+<!--
 ### `applications`
 
 Track applications made by users to job listings.
@@ -169,4 +173,4 @@ Track applications made by users to job listings.
 | `organisation_id` | UUID (FK) | Organisation applied to; References `organisations(id)` |
 | `resume_id`       | UUID (FK) | Resume used for application; References `resumes(id)`   |
 | `applied_at`      | Timestamp | Application date                                        |
-| `status`          | String    | e.g., 'submitted', 'reviewed'                           |
+| `status`          | String    | e.g., 'submitted', 'reviewed'                           | -->
