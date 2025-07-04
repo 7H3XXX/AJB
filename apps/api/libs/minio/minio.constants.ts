@@ -1,4 +1,4 @@
-export const MINIO_INSTANCE = 'minio-instance';
+export const MINIO_OPTIONS_TOKEN = 'MINIO-OPTIONS-TOKEN';
 export const MEDIA_EXTENSIONS: Record<string, string> = {
   // image
   'image/jpeg': '.jpg',

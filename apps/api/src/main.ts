@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { env, NodeEnv } from 'env.config';
-import { TransformInterceptor } from 'src/common/interceptors/transform.interceptor';
 import { HttpExceptionFilter } from 'src/common/filters/exception.filter';
 import { ConsoleLogger, LogLevel, ValidationPipe } from '@nestjs/common';
 import * as morgan from 'morgan';
@@ -22,7 +21,7 @@ async function bootstrap() {
     }),
     cors: true,
   });
-  app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalFilters(app.get(HttpExceptionFilter));
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

@@ -14,3 +14,13 @@ export const MinioImage = z.object({
 });
 
 export type MinioImage = z.infer<typeof MinioImage>;
+
+export interface MinioModuleOptions {
+  endPoint: string;
+  accessKey: string;
+  secretKey: string;
+  bucketName: string;
+  port?: number;
+  useSSL?: boolean;
+  region?: string;
+}

@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { SQL, sql } from 'drizzle-orm';
+import { SQL } from 'drizzle-orm';
 import {
   bigserial,
   PgColumn,
@@ -10,15 +10,14 @@ import {
 } from 'drizzle-orm/pg-core';
 import { DATABASE_CONNECTION } from './database-connection';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
-import { DBSchema } from './database.module';
-
+import { DBSchema } from './schemas';
 // ------------- Drizzle PG Table/Schema Utils
 export const baseSchema = {
   id: uuid('id').primaryKey().defaultRandom(),
   createdAt: timestamp().defaultNow(),
   updatedAt: timestamp()
     .defaultNow()
-    .$onUpdateFn(() => sql`now()`),
+    .$onUpdateFn(() => new Date()),
 };
 
 export const useSerial = {

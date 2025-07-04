@@ -21,6 +21,11 @@ export class UserDto extends SchemaDto {
   country: string;
 }
 
+enum UserType {
+  employer = 'employer',
+  seeker = 'seeker',
+}
+
 export class CreateUserDto extends OmitType(UserDto, [
   'id',
   'createdAt',
@@ -30,9 +35,9 @@ export class CreateUserDto extends OmitType(UserDto, [
   @ApiProperty({ example: '10xDev' })
   password: string;
 
-  @IsEnum(['employer', 'seeker'])
-  @ApiProperty({ example: 'seeker' })
-  userType: 'employer' | 'seeker';
+  @IsEnum(UserType)
+  @ApiProperty({ example: UserType.seeker, enum: UserType })
+  userType: UserType;
 }
 
 export class UpdateUserDto extends PartialType(

@@ -1,36 +1,38 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { DATABASE_CONNECTION } from './database-connection';
-import { Pool } from 'pg';
 import { drizzle } from 'drizzle-orm/node-postgres';
-import { DatabaseMigrationService } from './database.service';
 import { env } from 'env.config';
-import * as user from 'src/users/entities/schema';
-
-export const DBSchema = {
-  ...user,
-};
+import { DBSchema } from './schemas';
+import { SeedingService } from './seed.service';
 
 @Module({
   providers: [
     {
       provide: DATABASE_CONNECTION,
       useFactory: () => {
-        const pool = new Pool({
-          host: env.DATABASE_HOST,
-          user: env.DATABASE_USER,
-          database: env.DATABASE_NAME,
-          password: env.DATABASE_PWD,
-          port: env.DATABASE_PORT,
-          ssl: env.DATABASE_SSL,
-        });
         return drizzle({
-          client: pool,
+          connection: {
+            host: env.DATABASE_HOST,
+            user: env.DATABASE_USER,
+            database: env.DATABASE_NAME,
+            password: env.DATABASE_PWD,
+            port: env.DATABASE_PORT,
+            ssl: env.DATABASE_SSL,
+          },
           schema: DBSchema,
+          casing: 'snake_case',
         });
       },
     },
-    DatabaseMigrationService,
+    SeedingService,
   ],
   exports: [DATABASE_CONNECTION],
 })
-export class DatabaseModule {}
+export class DatabaseModule implements OnModuleInit {
+  constructor(private readonly seedingService: SeedingService) {}
+  async onModuleInit() {
+    if (env.DATABASE_SEEDING) {
+      await this.seedingService.startSeeding();
+    }
+  }
+}

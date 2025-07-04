@@ -1,34 +1,42 @@
-import { Module, OnModuleInit } from '@nestjs/common';
-import { MINIO_INSTANCE } from './minio.constants';
-import * as Minio from 'minio';
-import { env } from 'env.config';
+import {
+  ConfigurableModuleBuilder,
+  DynamicModule,
+  Module,
+} from '@nestjs/common';
+import { MinioModuleOptions } from './minio.interface';
 import { MinioService } from './minio.service';
+import { MINIO_OPTIONS_TOKEN } from './minio.constants';
+
+const { ConfigurableModuleClass } =
+  new ConfigurableModuleBuilder<MinioModuleOptions>()
+    .setExtras(
+      {
+        isGlobal: true,
+      },
+      (definition, extras) => ({
+        ...definition,
+        global: extras.isGlobal,
+      }),
+    )
+    .build();
 
 @Module({
-  providers: [
-    {
-      provide: MINIO_INSTANCE,
-      useFactory: () => {
-        const client = new Minio.Client({
-          endPoint: env.MINIO_HOST,
-          port: env.MINIO_PORT,
-          useSSL: env.MINIO_SSL,
-          accessKey: env.MINIO_ACCESS_KEY,
-          secretKey: env.MINIO_SECRET_KEY,
-        });
-        return client;
-      },
-    },
-    MinioService,
-  ],
+  providers: [MinioService],
   exports: [MinioService],
 })
-export class MinioModule implements OnModuleInit {
-  constructor(private readonly minioService: MinioService) {}
-  async onModuleInit() {
-    await this.minioService.createBucket(
-      env.MINIO_DEFAULT_BUCKET,
-      env.MINIO_DEFAULT_REGION,
-    );
+export class MinioModule extends ConfigurableModuleClass {
+  static forRoot(options: MinioModuleOptions): DynamicModule {
+    return {
+      module: MinioModule,
+      providers: [
+        {
+          provide: MINIO_OPTIONS_TOKEN,
+          useValue: options,
+        },
+        MinioService,
+      ],
+      exports: [MinioService],
+      global: true,
+    };
   }
 }

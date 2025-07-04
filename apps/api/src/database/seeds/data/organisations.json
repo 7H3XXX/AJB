@@ -1,0 +1,242 @@
+[
+  {
+    "name": "TechCorp Inc.",
+    "about": "Innovating future tech solutions for enterprise systems.",
+    "website": "https://techcorp.com",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Canada",
+    "createdByEmail": "maria.garcia@example.com"
+  },
+  {
+    "name": "GreenByte Ltd.",
+    "about": "A sustainability-focused software development firm.",
+    "website": "https://greenbyte.org",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Germany",
+    "createdByEmail": "amina.yusuf@example.com"
+  },
+  {
+    "name": "FutureWorks Solutions",
+    "about": "Empowering businesses with AI-driven analytics.",
+    "website": "https://futureworks.ai",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "United Kingdom",
+    "createdByEmail": "sarah.connor@example.com"
+  },
+  {
+    "name": "TechCorp Global",
+    "about": "Global expansion of TechCorp's innovative platforms.",
+    "website": "https://global.techcorp.com",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "United States",
+    "createdByEmail": "employer@techcorp.com"
+  },
+  {
+    "name": "EduBridge Africa",
+    "about": "Connecting African youth to global education opportunities.",
+    "website": "https://edubridge.africa",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Nigeria",
+    "createdByEmail": "lucy.lee@example.com"
+  },
+  {
+    "name": "HealthSync",
+    "about": "Digital health records and telemedicine solutions.",
+    "website": "https://healthsync.com",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "South Africa",
+    "createdByEmail": "fatima.ali@example.com"
+  },
+  {
+    "name": "AgroLink",
+    "about": "Connecting farmers with technology for better yields.",
+    "website": "https://agrolink.org",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Kenya",
+    "createdByEmail": "amina.yusuf@example.com"
+  },
+  {
+    "name": "Urban Mobility",
+    "about": "Smart solutions for urban transportation challenges.",
+    "website": "https://urbanmobility.com",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "France",
+    "createdByEmail": "sarah.connor@example.com"
+  },
+  {
+    "name": "FinEdge",
+    "about": "Financial technology for emerging markets.",
+    "website": "https://finedge.io",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Ghana",
+    "createdByEmail": "lucy.lee@example.com"
+  },
+  {
+    "name": "MedAccess",
+    "about": "Affordable healthcare access through digital platforms.",
+    "website": "https://medaccess.org",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Egypt",
+    "createdByEmail": "fatima.ali@example.com"
+  },
+  {
+    "name": "BlueOcean Analytics",
+    "about": "Data-driven insights for marine conservation.",
+    "website": "https://blueoceananalytics.com",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Australia",
+    "createdByEmail": "employer@techcorp.com"
+  },
+  {
+    "name": "SolarGrid",
+    "about": "Renewable energy solutions for rural communities.",
+    "website": "https://solargrid.africa",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Morocco",
+    "createdByEmail": "maria.garcia@example.com"
+  },
+  {
+    "name": "ByteBridge",
+    "about": "Bridging digital divides with affordable connectivity.",
+    "website": "https://bytebridge.net",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Senegal",
+    "createdByEmail": "lucy.lee@example.com"
+  },
+  {
+    "name": "AquaTech Solutions",
+    "about": "Water purification technology for urban and rural areas.",
+    "website": "https://aquatechsolutions.com",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Egypt",
+    "createdByEmail": "fatima.ali@example.com"
+  },
+  {
+    "name": "EduLeap",
+    "about": "E-learning platforms for African schools.",
+    "website": "https://eduleap.africa",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Ghana",
+    "createdByEmail": "sarah.connor@example.com"
+  },
+  {
+    "name": "FarmConnect",
+    "about": "Marketplace for local farmers and buyers.",
+    "website": "https://farmconnect.org",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Uganda",
+    "createdByEmail": "amina.yusuf@example.com"
+  },
+  {
+    "name": "SafeMed",
+    "about": "Medical supply chain transparency and safety.",
+    "website": "https://safemed.com",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "South Africa",
+    "createdByEmail": "employer@techcorp.com"
+  },
+  {
+    "name": "UrbanEco",
+    "about": "Smart city solutions for sustainable urban growth.",
+    "website": "https://urbaneco.io",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Nigeria",
+    "createdByEmail": "maria.garcia@example.com"
+  },
+  {
+    "name": "FinBridge",
+    "about": "Microfinance and fintech for small businesses.",
+    "website": "https://finbridge.africa",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Kenya",
+    "createdByEmail": "lucy.lee@example.com"
+  },
+  {
+    "name": "GreenHarvest",
+    "about": "Agro-tech for sustainable farming practices.",
+    "website": "https://greenharvest.org",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Ethiopia",
+    "createdByEmail": "amina.yusuf@example.com"
+  },
+  {
+    "name": "Code4Africa",
+    "about": "Coding bootcamps and tech education for youth.",
+    "website": "https://code4africa.com",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Rwanda",
+    "createdByEmail": "sarah.connor@example.com"
+  },
+  {
+    "name": "CloudNest",
+    "about": "Cloud infrastructure for African startups.",
+    "website": "https://cloudnest.africa",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "South Africa",
+    "createdByEmail": "lucy.lee@example.com"
+  },
+  {
+    "name": "SmartAgri",
+    "about": "IoT solutions for precision agriculture.",
+    "website": "https://smartagri.io",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Kenya",
+    "createdByEmail": "amina.yusuf@example.com"
+  },
+  {
+    "name": "TalentHub",
+    "about": "Connecting African talent to global opportunities.",
+    "website": "https://talenthub.africa",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Nigeria",
+    "createdByEmail": "maria.garcia@example.com"
+  },
+  {
+    "name": "EcoDrive",
+    "about": "Electric vehicle solutions for African cities.",
+    "website": "https://ecodrive.com",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Morocco",
+    "createdByEmail": "employer@techcorp.com"
+  },
+  {
+    "name": "HealthBridge",
+    "about": "Telehealth and remote diagnostics for rural areas.",
+    "website": "https://healthbridge.org",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Ghana",
+    "createdByEmail": "fatima.ali@example.com"
+  },
+  {
+    "name": "UrbanFarm",
+    "about": "Urban farming technology for sustainable cities.",
+    "website": "https://urbanfarm.africa",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Ethiopia",
+    "createdByEmail": "sarah.connor@example.com"
+  },
+  {
+    "name": "SkillForge",
+    "about": "Upskilling and reskilling for the digital economy.",
+    "website": "https://skillforge.com",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Uganda",
+    "createdByEmail": "lucy.lee@example.com"
+  },
+  {
+    "name": "AquaFarm",
+    "about": "Aquaculture innovation for food security.",
+    "website": "https://aquafarm.org",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Senegal",
+    "createdByEmail": "amina.yusuf@example.com"
+  },
+  {
+    "name": "DataLeap",
+    "about": "Big data analytics for African enterprises.",
+    "website": "https://dataleap.africa",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "country": "Egypt",
+    "createdByEmail": "maria.garcia@example.com"
+  }
+]

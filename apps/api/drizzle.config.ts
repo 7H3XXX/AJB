@@ -3,8 +3,9 @@ import { env } from 'env.config';
 
 export default defineConfig({
   schema: './src/**/schema.ts',
-  out: './src/database/migrations',
+  out: './migrations',
   dialect: 'postgresql',
+  casing: 'snake_case',
   dbCredentials: {
     host: env.DATABASE_HOST,
     user: env.DATABASE_USER,

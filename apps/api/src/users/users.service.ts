@@ -1,4 +1,9 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  Logger,
+} from '@nestjs/common';
 import {
   Database,
   InjectDatabase,
@@ -6,7 +11,7 @@ import {
   withColumns,
   withQueryColumns,
 } from 'src/database/utils';
-import { DBSchema } from 'src/database/database.module';
+import { DBSchema } from 'src/database/schemas';
 import {
   count,
   desc,
@@ -15,11 +20,15 @@ import {
   InferSelectModel,
 } from 'drizzle-orm';
 import { CreateUserDto } from './dto/user.dto';
+import { MinioService } from 'libs/minio/minio.service';
 
 @Injectable()
 export class UsersService {
   logger = new Logger(UsersService.name);
-  constructor(@InjectDatabase private readonly db: Database) {}
+  constructor(
+    @InjectDatabase private readonly db: Database,
+    private readonly minioService: MinioService,
+  ) {}
   async create({
     email,
     userType,
@@ -36,6 +45,7 @@ export class UsersService {
           withColumns(DBSchema.user, [
             'id',
             'createdAt',
+            'updatedAt',
             'firstname',
             'lastname',
             'email',
@@ -64,6 +74,7 @@ export class UsersService {
       columns: withQueryColumns(DBSchema.user, [
         'id',
         'createdAt',
+        'updatedAt',
         'firstname',
         'lastname',
         'email',
@@ -78,6 +89,7 @@ export class UsersService {
         withColumns(DBSchema.user, [
           'id',
           'createdAt',
+          'updatedAt',
           'firstname',
           'lastname',
           'email',
@@ -113,7 +125,10 @@ export class UsersService {
     this.logger.log(result);
     return { items, totalItems: result.totalItems };
   }
-  async update(id: string, data: InferSelectModel<typeof DBSchema.user>) {
+  async update(
+    id: string,
+    data: Partial<InferSelectModel<typeof DBSchema.user>>,
+  ) {
     const [user] = await this.db
       .update(DBSchema.user)
       .set(data)
@@ -122,6 +137,7 @@ export class UsersService {
         withColumns(DBSchema.user, [
           'id',
           'createdAt',
+          'updatedAt',
           'firstname',
           'lastname',
           'email',
@@ -143,9 +159,19 @@ export class UsersService {
           'isActive',
           'userId',
           'createdAt',
+          'updatedAt',
         ]),
       )
       .from(DBSchema.role)
       .where(eq(DBSchema.role.userId, userId));
+  }
+  async updateProfileImageByUserId(userId: string, dataUri: string) {
+    const user = await this.findById(userId);
+    if (!user)
+      throw new ForbiddenException(
+        `User with the matching id not found: ${userId}`,
+      );
+    const blob = await this.minioService.putDataUri(dataUri);
+    return await this.update(userId, { imageUrl: blob.baseUrl });
   }
 }

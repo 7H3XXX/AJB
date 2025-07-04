@@ -1,0 +1,122 @@
+[
+  {
+    "email": "root@mail.com",
+    "emailVerified": true,
+    "firstname": "Root",
+    "lastname": "Admin",
+    "passwordHash": "$2b$10$uXmBjJTqxCMl96Fel7Pdg.TgisVnmQkmL59RaiM.FPBMpxMsWNvLC",
+    "country": "USA",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "roles": ["user", "admin", "employer"]
+  },
+  {
+    "email": "john.doe@example.com",
+    "emailVerified": true,
+    "firstname": "John",
+    "lastname": "Doe",
+    "passwordHash": "$2b$10$uXmBjJTqxCMl96Fel7Pdg.TgisVnmQkmL59RaiM.FPBMpxMsWNvLC",
+    "country": "USA",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "roles": ["user", "seeker"]
+  },
+  {
+    "email": "sarah.connor@example.com",
+    "emailVerified": true,
+    "firstname": "Sarah",
+    "lastname": "Connor",
+    "passwordHash": "$2b$10$uXmBjJTqxCMl96Fel7Pdg.TgisVnmQkmL59RaiM.FPBMpxMsWNvLC",
+    "country": "UK",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "roles": ["user", "employer"]
+  },
+  {
+    "email": "employer@techcorp.com",
+    "emailVerified": true,
+    "firstname": "Alice",
+    "lastname": "Smith",
+    "passwordHash": "$2b$10$uXmBjJTqxCMl96Fel7Pdg.TgisVnmQkmL59RaiM.FPBMpxMsWNvLC",
+    "country": "Canada",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "roles": ["user", "employer"]
+  },
+  {
+    "email": "michael.brown@example.com",
+    "emailVerified": true,
+    "firstname": "Michael",
+    "lastname": "Brown",
+    "passwordHash": "$2b$10$uXmBjJTqxCMl96Fel7Pdg.TgisVnmQkmL59RaiM.FPBMpxMsWNvLC",
+    "country": "Nigeria",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "roles": ["user", "seeker"]
+  },
+  {
+    "email": "lucy.lee@example.com",
+    "emailVerified": true,
+    "firstname": "Lucy",
+    "lastname": "Lee",
+    "passwordHash": "$2b$10$uXmBjJTqxCMl96Fel7Pdg.TgisVnmQkmL59RaiM.FPBMpxMsWNvLC",
+    "country": "South Africa",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "roles": ["user", "employer"]
+  },
+  {
+    "email": "david.kim@example.com",
+    "emailVerified": true,
+    "firstname": "David",
+    "lastname": "Kim",
+    "passwordHash": "$2b$10$uXmBjJTqxCMl96Fel7Pdg.TgisVnmQkmL59RaiM.FPBMpxMsWNvLC",
+    "country": "Kenya",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "roles": ["user", "seeker"]
+  },
+  {
+    "email": "fatima.ali@example.com",
+    "emailVerified": true,
+    "firstname": "Fatima",
+    "lastname": "Ali",
+    "passwordHash": "$2b$10$uXmBjJTqxCMl96Fel7Pdg.TgisVnmQkmL59RaiM.FPBMpxMsWNvLC",
+    "country": "Egypt",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "roles": ["user", "employer"]
+  },
+  {
+    "email": "paul.ngugi@example.com",
+    "emailVerified": true,
+    "firstname": "Paul",
+    "lastname": "Ngugi",
+    "passwordHash": "$2b$10$uXmBjJTqxCMl96Fel7Pdg.TgisVnmQkmL59RaiM.FPBMpxMsWNvLC",
+    "country": "Kenya",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "roles": ["user", "seeker"]
+  },
+  {
+    "email": "maria.garcia@example.com",
+    "emailVerified": true,
+    "firstname": "Maria",
+    "lastname": "Garcia",
+    "passwordHash": "$2b$10$uXmBjJTqxCMl96Fel7Pdg.TgisVnmQkmL59RaiM.FPBMpxMsWNvLC",
+    "country": "Spain",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "roles": ["user", "employer"]
+  },
+  {
+    "email": "thabo.mokoena@example.com",
+    "emailVerified": true,
+    "firstname": "Thabo",
+    "lastname": "Mokoena",
+    "passwordHash": "$2b$10$uXmBjJTqxCMl96Fel7Pdg.TgisVnmQkmL59RaiM.FPBMpxMsWNvLC",
+    "country": "South Africa",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "roles": ["user", "seeker"]
+  },
+  {
+    "email": "amina.yusuf@example.com",
+    "emailVerified": true,
+    "firstname": "Amina",
+    "lastname": "Yusuf",
+    "passwordHash": "$2b$10$uXmBjJTqxCMl96Fel7Pdg.TgisVnmQkmL59RaiM.FPBMpxMsWNvLC",
+    "country": "Nigeria",
+    "imageUrl": "https://play.min.io:9000/ajb-bucket/blob_650a849103b8.png",
+    "roles": ["user", "employer"]
+  }
+]

@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { Database, InjectDatabase, withColumns } from 'src/database/utils';
 import { SignInDto } from './dto/auth.dto';
-import { DBSchema } from 'src/database/database.module';
+import { DBSchema } from 'src/database/schemas';
 import { eq } from 'drizzle-orm';
 import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
@@ -39,7 +39,7 @@ export class AuthService {
         withColumns(DBSchema.user, [
           'id',
           'email',
-          'email_verified',
+          'emailVerified',
           'firstname',
           'lastname',
           'createdAt',

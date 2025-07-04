@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { MailModuleOptions } from './mail.interface';
 import { MailService } from './mail.service';
-import { MAILER_MODULE_OPTIONS } from './mail.constansts';
+import { MAILER_OPTIONS_TOKEN } from './mail.constansts';
 
 const { ConfigurableModuleClass } =
   new ConfigurableModuleBuilder<MailModuleOptions>()
@@ -30,7 +30,7 @@ export class MailModule extends ConfigurableModuleClass {
       module: MailModule,
       providers: [
         {
-          provide: MAILER_MODULE_OPTIONS,
+          provide: MAILER_OPTIONS_TOKEN,
           useValue: options,
         },
         MailService,

@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  Put,
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
@@ -10,10 +11,10 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from 'src/users/dto/user.dto';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
-import { SignInDto } from './dto/auth.dto';
-import { RolesGuard } from './guards/roles.guard';
+import { ProfileImageDto, SignInDto } from './dto/auth.dto';
 import { GetUser } from './decorators/user.decorator';
 import { AuthUser } from './auth.interface';
+import { AuthGuard } from './guards/auth.guard';
 
 @Controller('auth')
 @ApiTags('authentication')
@@ -61,14 +62,25 @@ export class AuthController {
   }
 
   @Get('profile')
-  @UseGuards(RolesGuard({ allow: ['user'] }))
+  @UseGuards(AuthGuard)
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Returns profile data of the logged in user' })
-  getAuthProfile(@GetUser() user: AuthUser) {
+  getAuthProfile(@GetUser() authUser: AuthUser) {
     return {
       status: true,
       message: 'User auth profile retrieved successfully',
-      data: user,
+      data: authUser,
     };
+  }
+
+  @Put('profile/image')
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Updates profile image of the logged in user' })
+  putAuthProfileImage(
+    @GetUser() authUser: AuthUser,
+    @Body() { image }: ProfileImageDto,
+  ) {
+    return this.userService.updateProfileImageByUserId(authUser.id, image);
   }
 }

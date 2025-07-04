@@ -5,7 +5,7 @@ import { baseSchema } from 'src/database/utils';
 export const user = pg.pgTable('user', {
   ...baseSchema,
   email: pg.text().unique().notNull(),
-  email_verified: pg.boolean().default(false),
+  emailVerified: pg.boolean().default(false),
   firstname: pg.text(),
   lastname: pg.text(),
   passwordHash: pg.text(),
@@ -13,7 +13,7 @@ export const user = pg.pgTable('user', {
   imageUrl: pg.text(),
 });
 
-export const userRole = pg.pgEnum('userRole', [
+export const userRole = pg.pgEnum('user_role', [
   'admin',
   'user',
   'employer',
@@ -28,7 +28,7 @@ export const role = pg.pgTable(
       .uuid()
       .references(() => user.id, { onDelete: 'cascade' })
       .notNull(),
-    role: userRole(),
+    role: userRole().notNull(),
     isActive: pg.boolean().default(true),
   },
   (table) => ({
@@ -43,8 +43,5 @@ export const userRelations = relations(user, ({ many }) => ({
 }));
 
 export const roleRelations = relations(role, ({ one }) => ({
-  user: one(user, {
-    fields: [role.userId],
-    references: [user.id],
-  }),
+  user: one(user),
 }));

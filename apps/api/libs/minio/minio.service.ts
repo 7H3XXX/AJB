@@ -1,16 +1,44 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { MEDIA_EXTENSIONS, MINIO_INSTANCE } from './minio.constants';
+import { Inject, Injectable, Logger } from '@nestjs/common';
+import { MEDIA_EXTENSIONS, MINIO_OPTIONS_TOKEN } from './minio.constants';
 import * as Minio from 'minio';
 import { dataUriToBuffer } from 'data-uri-to-buffer';
 import { Readable } from 'stream';
-import { env } from 'env.config';
 import { randomBytes } from 'crypto';
-import { MinioImage } from './minio.types';
+import { MinioImage, MinioModuleOptions } from './minio.interface';
 
 @Injectable()
 export class MinioService {
-  constructor(@Inject(MINIO_INSTANCE) public readonly client: Minio.Client) {}
+  private readonly client: Minio.Client;
+  private readonly logger = new Logger(MinioService.name);
 
+  constructor(
+    @Inject(MINIO_OPTIONS_TOKEN) private readonly options: MinioModuleOptions,
+  ) {
+    this.client = new Minio.Client({
+      endPoint: options.endPoint,
+      accessKey: options.accessKey,
+      secretKey: options.secretKey,
+      port: options.port ?? 9000,
+      useSSL: options.useSSL ?? true,
+    });
+    this.createBucket(options.bucketName, options.region ?? 'us-east-1')
+      .then((resp) => {
+        if (resp) {
+          this.logger.debug(
+            `>>> Bucket '${options.bucketName}' created successfully.`,
+          );
+        } else {
+          this.logger.debug(
+            `>>> Bucket '${options.bucketName}' already exists, skipping.`,
+          );
+        }
+      })
+      .catch((reason: any) => {
+        this.logger.error(reason);
+      });
+  }
+
+  // Bucket Operations
   async createBucket(
     bucketName: string,
     region?: string,
@@ -34,8 +62,10 @@ export class MinioService {
         ],
       });
     await this.client.setBucketPolicy(bucketName, bucketPolicy);
+    return !exists;
   }
 
+  // Object Operations
   async putDataUri(
     dataUri: string,
     objectName?: string,
@@ -51,7 +81,7 @@ export class MinioService {
     const fileEx = MEDIA_EXTENSIONS[buffer.type];
     objectName =
       objectName ?? `blob_${randomBytes(6).toString('hex')}${fileEx || ''}`;
-    bucketName = bucketName ?? env.MINIO_DEFAULT_BUCKET;
+    bucketName = bucketName ?? this.options.bucketName;
 
     const putResp = await this.client.putObject(
       bucketName,

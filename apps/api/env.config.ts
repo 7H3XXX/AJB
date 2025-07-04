@@ -40,6 +40,8 @@ export const envSchema = z.object({
   DATABASE_SSL: z.coerce.boolean().default(false),
   DEFAULT_PAGE_SIZE: z.coerce.number().default(25),
 
+  DATABASE_SEEDING: z.coerce.boolean().default(false),
+
   // MinIO Configs
   MINIO_HOST: z.string(),
   MINIO_PORT: z.coerce.number(),

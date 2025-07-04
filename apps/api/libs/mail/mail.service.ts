@@ -10,7 +10,7 @@ import {
   MailOptions,
   MessageInfo,
 } from './mail.interface';
-import { MAILER_MODULE_OPTIONS } from './mail.constansts';
+import { MAILER_OPTIONS_TOKEN } from './mail.constansts';
 
 @Injectable()
 export class MailService {
@@ -19,7 +19,7 @@ export class MailService {
   private readonly logger: Logger;
 
   constructor(
-    @Inject(MAILER_MODULE_OPTIONS)
+    @Inject(MAILER_OPTIONS_TOKEN)
     private readonly options: MailModuleOptions,
   ) {
     this.transporter = nodemailer.createTransport(this.options.transport);
