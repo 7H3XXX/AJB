@@ -1,5 +1,5 @@
 import { Module, OnModuleInit } from '@nestjs/common';
-import { DATABASE_CONNECTION } from './database-connection';
+import { DATABASE_CONNECTION_TOKEN } from './utils/database-connection';
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { env } from 'env.config';
 import { DBSchema } from './schemas';
@@ -8,7 +8,7 @@ import { SeedingService } from './seed.service';
 @Module({
   providers: [
     {
-      provide: DATABASE_CONNECTION,
+      provide: DATABASE_CONNECTION_TOKEN,
       useFactory: () => {
         return drizzle({
           connection: {
@@ -26,7 +26,7 @@ import { SeedingService } from './seed.service';
     },
     SeedingService,
   ],
-  exports: [DATABASE_CONNECTION],
+  exports: [DATABASE_CONNECTION_TOKEN],
 })
 export class DatabaseModule implements OnModuleInit {
   constructor(private readonly seedingService: SeedingService) {}

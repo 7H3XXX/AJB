@@ -1,6 +1,6 @@
 import { drizzle } from 'drizzle-orm/node-postgres';
 import { env } from 'env.config';
-import { DBSchema } from './schemas';
+import { DBSchema } from '../schemas';
 
 export const db = drizzle({
   connection: {

@@ -66,6 +66,18 @@ turbo dev --filter=api
 
 The API should now be running and connected to your local PostgreSQL database.
 
+### Running Database Seeding
+
+To populate your development database with sample data, set the `DATABASE_SEEDING` environment variable to `true` when starting the API service.
+
+From the project root, execute the following command:
+
+```bash
+DATABASE_SEEDING=true turbo dev --filter=api
+```
+
+The `--filter=api` flag is optional but recommended. It ensures that Turborepo only starts the `dev` script for the `api` workspace, as database seeding is typically exclusive to the API service.
+
 ---
 
 **Troubleshooting:**

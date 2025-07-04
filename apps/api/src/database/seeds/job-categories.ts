@@ -1,4 +1,4 @@
-import db from '..';
+import db from '../utils/db';
 import { DBSchema } from '../schemas';
 import * as jobCategories from './data/job-categories.json';
 

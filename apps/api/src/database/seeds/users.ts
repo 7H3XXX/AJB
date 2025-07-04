@@ -1,4 +1,4 @@
-import db from '..';
+import db from '../utils/db';
 import { DBSchema } from '../schemas';
 import * as users from './data/users.json';
 

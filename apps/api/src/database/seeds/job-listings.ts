@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm';
-import db from '..';
+import db from '../utils/db';
 import { DBSchema } from '../schemas';
 import * as jobListings from './data/job-listings.json';
 import {

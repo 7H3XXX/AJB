@@ -8,9 +8,9 @@ import {
   timestamp,
   uuid,
 } from 'drizzle-orm/pg-core';
-import { DATABASE_CONNECTION } from './database-connection';
+import { DATABASE_CONNECTION_TOKEN } from './database-connection';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
-import { DBSchema } from './schemas';
+import { DBSchema } from '../schemas';
 // ------------- Drizzle PG Table/Schema Utils
 export const baseSchema = {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -26,7 +26,7 @@ export const useSerial = {
 };
 
 // -------------- Drizzle PG Column Utils
-export const InjectDatabase = Inject(DATABASE_CONNECTION);
+export const InjectDatabase = Inject(DATABASE_CONNECTION_TOKEN);
 export type Database = NodePgDatabase<typeof DBSchema>;
 
 export type ColumnKeys<T extends PgTable> = {

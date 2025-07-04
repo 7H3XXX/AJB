@@ -1,5 +1,5 @@
 import { env } from 'env.config';
-import db from '.';
+import db from './utils/db';
 import { getTableName, sql, Table } from 'drizzle-orm';
 import { DBSchema } from './schemas';
 import { Injectable, Logger } from '@nestjs/common';
@@ -20,6 +20,10 @@ export class SeedingService {
       throw new Error(
         'You must set DATABASE_SEEDING to "true" when running seeds',
       );
+    }
+    if (env.NODE_ENV === 'production') {
+      this.logger.warn(`You are about to seed in a production staging area.`);
+      throw new Error(`Cannot seed database in production staging area.`);
     }
 
     this.logger.debug('Resetting all database tables before seeding...');

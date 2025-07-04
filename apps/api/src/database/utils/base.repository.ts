@@ -25,7 +25,7 @@ import {
   PgTableWithColumns,
   PgTransaction,
 } from 'drizzle-orm/pg-core';
-import { ColumnKeys, Database, InjectDatabase, withColumns } from './utils';
+import { ColumnKeys, Database, InjectDatabase, withColumns } from '.';
 import { env } from 'env.config';
 
 //? ------------ Interfaces and types
