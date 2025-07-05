@@ -38,6 +38,30 @@ export class JobsService {
     ];
   }
 
+  async findJobListingById(id: string) {
+    return await this.db.query.jobListing.findFirst({
+      with: {
+        category: {
+          columns: withQueryColumns(DBSchema.jobCategory, [
+            'id',
+            'name',
+            'iconUrl',
+          ]),
+        },
+        organisation: {
+          columns: withQueryColumns(DBSchema.organisation, [
+            'id',
+            'name',
+            'website',
+            'about',
+            'imageUrl',
+          ]),
+        },
+      },
+      where: eq(DBSchema.jobListing.id, id),
+    });
+  }
+
   async findAllJobListings(
     options: PageOptions & Partial<JobListingFilterDto>,
   ) {

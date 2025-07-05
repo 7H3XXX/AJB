@@ -23,11 +23,10 @@ export class ManageUsersController {
       limit,
       offset,
     });
-    const data = paginate({ ...query, items, totalItems });
     return {
       status: true,
       message: 'Users retrieved successfully',
-      data,
+      data: paginate({ ...query, items, totalItems }),
     };
   }
 }

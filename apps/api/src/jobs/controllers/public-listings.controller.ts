@@ -1,4 +1,11 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  NotFoundException,
+  Param,
+  ParseUUIDPipe,
+  Query,
+} from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JobsService } from '../jobs.service';
 import { getLimitAndOffset, paginate } from 'src/common/utils/paginated.utils';
@@ -18,6 +25,24 @@ export class PublicJobListingController {
       offset,
       ...query,
     });
-    return paginate({ items, totalItems, ...query });
+    return {
+      status: true,
+      message: 'Public job listings retrieved successfully',
+      data: paginate({ items, totalItems, ...query }),
+    };
+  }
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Returns a public job listing with a matching id' })
+  async getPublicJobListingById(@Param('id', ParseUUIDPipe) id: string) {
+    const foundJob = await this.jobsService.findJobListingById(id);
+    if (!foundJob) {
+      throw new NotFoundException(`No job found with a matching id: ${id}`);
+    }
+    return {
+      status: true,
+      message: 'Job listing retrieved successfully',
+      data: foundJob,
+    };
   }
 }

@@ -81,6 +81,10 @@ export class AuthController {
     @GetUser() authUser: AuthUser,
     @Body() { image }: ProfileImageDto,
   ) {
-    return this.userService.updateProfileImageByUserId(authUser.id, image);
+    return {
+      status: true,
+      message: 'Profile image updated successfully',
+      data: this.userService.updateProfileImageByUserId(authUser.id, image),
+    };
   }
 }
