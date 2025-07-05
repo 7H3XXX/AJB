@@ -21,6 +21,7 @@ import {
 } from 'drizzle-orm';
 import { CreateUserDto } from './dto/user.dto';
 import { MinioService } from 'libs/minio/minio.service';
+import { getGravatarUrl } from 'libs/gravatar/main';
 
 @Injectable()
 export class UsersService {
@@ -53,6 +54,7 @@ export class UsersService {
     {
       email,
       userType,
+      imageUrl,
       ...data
     }: InferInsertModel<typeof DBSchema.user> & Pick<CreateUserDto, 'userType'>,
     options?: Pick<QueryOptions<typeof DBSchema.user>, 'select'>,
@@ -62,6 +64,7 @@ export class UsersService {
         .insert(DBSchema.user)
         .values({
           email: email.toLowerCase(),
+          imageUrl: imageUrl || getGravatarUrl(email),
           ...data,
         })
         .returning(
