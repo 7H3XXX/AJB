@@ -9,7 +9,7 @@ import {
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JobsService } from '../jobs.service';
 import { getLimitAndOffset, paginate } from 'src/common/utils/paginated.utils';
-import { JobListingFilterDto } from '../dto/job-listings.dto';
+import { PublicJobListingFilterDto } from '../dto/job-listings.dto';
 
 @Controller('public/job-listings')
 @ApiTags('public job listings')
@@ -18,7 +18,7 @@ export class PublicJobListingController {
 
   @Get()
   @ApiOperation({ summary: 'Returns active public job listings' })
-  async getPublicJobListing(@Query() query: JobListingFilterDto) {
+  async getPublicJobListing(@Query() query: PublicJobListingFilterDto) {
     const [limit, offset] = getLimitAndOffset(query);
     const { items, totalItems } = await this.jobsService.findAllJobListings({
       limit,

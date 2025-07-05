@@ -7,13 +7,13 @@ export class PaginatedDto {
   @IsPositive()
   @IsOptional()
   @ApiProperty({ example: 1, required: false })
-  currPage: number;
+  currPage?: number;
 
   @IsNumber()
   @IsPositive()
   @IsOptional()
   @ApiProperty({ example: 10, required: false })
-  perPage: number;
+  perPage?: number;
 }
 
 interface Options {

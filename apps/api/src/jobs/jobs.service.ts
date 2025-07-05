@@ -19,7 +19,10 @@ import {
   TableColumns,
   withQueryColumns,
 } from 'src/database/utils';
-import { JobListingFilterDto } from './dto/job-listings.dto';
+import {
+  JobListingFilterDto,
+  PublicJobListingFilterDto,
+} from './dto/job-listings.dto';
 
 @Injectable()
 export class JobsService {
@@ -68,16 +71,20 @@ export class JobsService {
       where: eq(DBSchema.jobListing.id, id),
     });
     if (!foundJob) return null;
-    const { jobToSkills, ...flattenedJob } = foundJob;
-    flattenedJob['skills'] = jobToSkills.map((value) => ({
-      id: value.jobSkill?.id,
-      name: value.jobSkill?.name,
-    }));
-    return flattenedJob;
+    const { jobToSkills, ...jobData } = foundJob;
+    return {
+      skills: jobToSkills.map((value) => ({
+        id: value.jobSkill?.id,
+        name: value.jobSkill?.name,
+      })),
+      ...jobData,
+    };
   }
 
   async findAllJobListings(
-    options: PageOptions & Partial<JobListingFilterDto>,
+    options: PageOptions &
+      Partial<PublicJobListingFilterDto> &
+      Partial<JobListingFilterDto>,
   ) {
     const conditions: (SQL<unknown> | undefined)[] = [
       eq(DBSchema.jobListing.isActive, true),
@@ -132,9 +139,16 @@ export class JobsService {
     if (options.salaryFrom) {
       conditions.push(gte(DBSchema.jobListing.salaryFrom, options.salaryFrom));
     }
-
     if (options.salaryTo) {
       conditions.push(lte(DBSchema.jobListing.salaryFrom, options.salaryTo));
+    }
+    if (options.organisationId) {
+      conditions.push(
+        eq(DBSchema.jobListing.organisationId, options.organisationId),
+      );
+    }
+    if (options.createdById) {
+      conditions.push(eq(DBSchema.jobListing.createdById, options.createdById));
     }
     const items = await this.db.query.jobListing.findMany({
       where: and(...conditions),

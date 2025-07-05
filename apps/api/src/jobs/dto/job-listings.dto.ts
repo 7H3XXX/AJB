@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PickType } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import {
   IsArray,
@@ -11,7 +11,7 @@ import { PaginatedDto } from 'src/common/utils/paginated.utils';
 import { jobListingExperienceLevel, jobListingType } from '../entities/schema';
 import * as ms from 'ms';
 
-export class JobListingFilterDto extends PaginatedDto {
+export class PublicJobListingFilterDto extends PaginatedDto {
   @IsArray()
   @IsUUID('4', { each: true })
   @ApiProperty({ required: false })
@@ -20,7 +20,7 @@ export class JobListingFilterDto extends PaginatedDto {
     const values = typeof value === 'string' ? [value] : value;
     return values;
   })
-  categoryIds: string[];
+  categoryIds?: string[];
 
   @IsArray()
   @IsString({ each: true })
@@ -30,7 +30,7 @@ export class JobListingFilterDto extends PaginatedDto {
     const values = typeof value === 'string' ? [value] : value;
     return values;
   })
-  types: jobListingType[];
+  types?: jobListingType[];
 
   @IsArray()
   @IsString({ each: true })
@@ -40,7 +40,7 @@ export class JobListingFilterDto extends PaginatedDto {
     const values = typeof value === 'string' ? [value] : value;
     return values;
   })
-  experienceLevels: jobListingExperienceLevel[];
+  experienceLevels?: jobListingExperienceLevel[];
 
   @IsArray()
   @ApiProperty({ required: false })
@@ -53,25 +53,41 @@ export class JobListingFilterDto extends PaginatedDto {
       .map((value) => transform(value));
     return result;
   })
-  dateRanges: Date[];
+  dateRanges?: Date[];
 
   @IsString()
   @ApiProperty({ required: false })
   @IsOptional()
-  location: string;
+  location?: string;
 
   @IsString()
   @ApiProperty({ required: false })
   @IsOptional()
-  search: string;
+  search?: string;
 
   @IsNumber()
   @ApiProperty({ required: false })
   @IsOptional()
-  salaryFrom: number;
+  salaryFrom?: number;
 
   @IsNumber()
   @ApiProperty({ required: false })
   @IsOptional()
-  salaryTo: number;
+  salaryTo?: number;
+
+  @IsUUID()
+  @ApiProperty({ required: false })
+  @IsOptional()
+  organisationId?: string;
+
+  @IsUUID()
+  @ApiProperty({ required: false })
+  @IsOptional()
+  createdById?: string;
 }
+
+export class JobListingFilterDto extends PickType(PublicJobListingFilterDto, [
+  'currPage',
+  'perPage',
+  'organisationId',
+]) {}
