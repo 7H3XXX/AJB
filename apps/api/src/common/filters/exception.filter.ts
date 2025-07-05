@@ -53,22 +53,20 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (status === 500) {
       const requestUrl =
         request.protocol + '://' + request.get('host') + request.originalUrl;
-
-      this.eventEmitter.emit(
-        AppContracts.events.app.internalError,
-        new EventsAppInternalErrorDto({
-          appName: env.PROJECT_TITLE,
-          appStaging: env.NODE_ENV,
-          errorMessage: message,
-          method: request.method,
-          requestUrl,
-          queryParams: Object.keys(request.params).length
-            ? JSON.stringify({ ...request.params })
-            : undefined,
-          payloadData: JSON.stringify(request.body),
-          errorStack: exception.stack,
-        }),
-      );
+      if (!requestUrl.includes('localhost')) {
+        this.eventEmitter.emit(
+          AppContracts.events.app.internalError,
+          new EventsAppInternalErrorDto({
+            appName: env.PROJECT_TITLE,
+            appStaging: env.NODE_ENV,
+            errorMessage: message,
+            method: request.method,
+            requestUrl,
+            payloadData: JSON.stringify(request.body),
+            errorStack: exception.stack,
+          }),
+        );
+      }
     }
     response.status(status).json({
       status: false,

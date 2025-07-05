@@ -75,9 +75,15 @@ export function withQueryColumns<T extends PgTable, C extends ColumnKeys<T>[]>(
 
 // ------------------ Drizzle Query Utils
 
-export interface QueryOptions {
+export interface PageOptions {
   offset: number;
   limit: number;
-  where?: SQL<unknown>;
+}
+
+export type TableColumns<T extends PgTable> = ColumnKeys<T>[];
+
+export interface QueryOptions<T extends PgTable> extends PageOptions {
+  where?: SQL<unknown> | undefined;
   orderBy?: PgColumn | SQL<unknown>;
+  select?: TableColumns<T>;
 }

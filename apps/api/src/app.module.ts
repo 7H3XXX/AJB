@@ -10,6 +10,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { EventsModule } from './events/events.module';
 import { MinioModule } from 'libs/minio/minio.module';
 import { OrganisationsModule } from './organisations/organisations.module';
+import { JobsModule } from './jobs/jobs.module';
 
 @Module({
   imports: [
@@ -52,6 +53,7 @@ import { OrganisationsModule } from './organisations/organisations.module';
     DatabaseModule,
     UsersModule,
     OrganisationsModule,
+    JobsModule,
   ],
   controllers: [],
   providers: [HttpExceptionFilter],

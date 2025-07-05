@@ -5,7 +5,6 @@ export class EventsAppInternalErrorDto {
   readonly method: string;
   readonly requestUrl: string;
   readonly errorStack?: string;
-  readonly queryParams?: string;
   readonly payloadData?: string;
   constructor(data: EventsAppInternalErrorDto) {
     Object.assign(this, data);

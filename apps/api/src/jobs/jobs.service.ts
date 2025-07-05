@@ -1,0 +1,141 @@
+import { Injectable } from '@nestjs/common';
+import {
+  and,
+  count,
+  desc,
+  eq,
+  gte,
+  ilike,
+  inArray,
+  lte,
+  or,
+  SQL,
+} from 'drizzle-orm';
+import { DBSchema } from 'src/database/schemas';
+import {
+  Database,
+  InjectDatabase,
+  PageOptions,
+  TableColumns,
+  withQueryColumns,
+} from 'src/database/utils';
+import { JobListingFilterDto } from './dto/job-listings.dto';
+
+@Injectable()
+export class JobsService {
+  defaultJobListingSelect: TableColumns<typeof DBSchema.jobListing>;
+
+  constructor(@InjectDatabase private readonly db: Database) {
+    this.defaultJobListingSelect = [
+      'createdAt',
+      'title',
+      'type',
+      'city',
+      'country',
+      'salaryFrom',
+      'salaryTo',
+      'experienceLevel',
+    ];
+  }
+
+  async findAllJobListings(
+    options: PageOptions & Partial<JobListingFilterDto>,
+  ) {
+    console.log(options);
+    const conditions: (SQL<unknown> | undefined)[] = [
+      eq(DBSchema.jobListing.isActive, true),
+    ];
+    // query filters
+    if (options.categoryIds) {
+      conditions.push(
+        inArray(DBSchema.jobListing.categoryId, options.categoryIds),
+      );
+    }
+    if (options.types) {
+      conditions.push(inArray(DBSchema.jobListing.type, options.types));
+    }
+    if (options.experienceLevels) {
+      conditions.push(
+        inArray(DBSchema.jobListing.experienceLevel, options.experienceLevels),
+      );
+    }
+    if (options.dateRanges) {
+      conditions.push(
+        or(
+          ...options.dateRanges.map((item) =>
+            gte(DBSchema.jobListing.createdAt, item),
+          ),
+        ),
+      );
+    }
+    if (options.location) {
+      conditions.push(
+        or(
+          ...options.location
+            .split(' ')
+            // TODO: Replace LIKE query with Postgres Full Text Search
+            .map((value) => ilike(DBSchema.jobListing.country, `%${value}%`)),
+          ...options.location
+            .split(' ')
+            // TODO: Replace LIKE query with Postgres Full Text Search
+            .map((value) => ilike(DBSchema.jobListing.city, `%${value}%`)),
+        ),
+      );
+    }
+    if (options.search) {
+      conditions.push(
+        or(
+          ...options.search
+            .split(' ')
+            // TODO: Replace LIKE query with Postgres Full Text Search
+            .map((value) => ilike(DBSchema.jobListing.title, `%${value}%`)),
+        ),
+      );
+    }
+    if (options.salaryFrom) {
+      conditions.push(gte(DBSchema.jobListing.salaryFrom, options.salaryFrom));
+    }
+
+    if (options.salaryTo) {
+      conditions.push(lte(DBSchema.jobListing.salaryFrom, options.salaryTo));
+    }
+    const items = await this.db.query.jobListing.findMany({
+      where: and(...conditions),
+      columns: withQueryColumns(DBSchema.jobListing, [
+        'id',
+        'createdAt',
+        'title',
+        'city',
+        'country',
+        'salaryFrom',
+        'salaryTo',
+        'currency',
+        'type',
+      ]),
+      with: {
+        category: {
+          columns: withQueryColumns(DBSchema.jobCategory, [
+            'id',
+            'name',
+            'iconUrl',
+          ]),
+        },
+        organisation: {
+          columns: withQueryColumns(DBSchema.organisation, [
+            'name',
+            'imageUrl',
+            'id',
+          ]),
+        },
+      },
+      limit: options.limit,
+      offset: options.offset,
+      orderBy: desc(DBSchema.jobListing.createdAt),
+    });
+    const [result] = await this.db
+      .select({ totalItems: count() })
+      .from(DBSchema.jobListing)
+      .where(and(...conditions));
+    return { items, totalItems: result.totalItems };
+  }
+}

@@ -25,15 +25,38 @@ import { MinioService } from 'libs/minio/minio.service';
 @Injectable()
 export class UsersService {
   logger = new Logger(UsersService.name);
+  defaultUserSelect: NonNullable<QueryOptions<typeof DBSchema.user>['select']>;
+  defaultRoleSelect: NonNullable<QueryOptions<typeof DBSchema.role>['select']>;
   constructor(
     @InjectDatabase private readonly db: Database,
     private readonly minioService: MinioService,
-  ) {}
-  async create({
-    email,
-    userType,
-    ...data
-  }: InferInsertModel<typeof DBSchema.user> & Pick<CreateUserDto, 'userType'>) {
+  ) {
+    this.defaultUserSelect = [
+      'id',
+      'createdAt',
+      'updatedAt',
+      'firstname',
+      'lastname',
+      'email',
+      'imageUrl',
+    ];
+    this.defaultRoleSelect = [
+      'id',
+      'role',
+      'isActive',
+      'userId',
+      'createdAt',
+      'updatedAt',
+    ];
+  }
+  async create(
+    {
+      email,
+      userType,
+      ...data
+    }: InferInsertModel<typeof DBSchema.user> & Pick<CreateUserDto, 'userType'>,
+    options?: Pick<QueryOptions<typeof DBSchema.user>, 'select'>,
+  ) {
     try {
       const [user] = await this.db
         .insert(DBSchema.user)
@@ -42,15 +65,7 @@ export class UsersService {
           ...data,
         })
         .returning(
-          withColumns(DBSchema.user, [
-            'id',
-            'createdAt',
-            'updatedAt',
-            'firstname',
-            'lastname',
-            'email',
-            'imageUrl',
-          ]),
+          withColumns(DBSchema.user, options?.select || this.defaultUserSelect),
         );
       await this.db.insert(DBSchema.role).values([
         {
@@ -71,58 +86,40 @@ export class UsersService {
   async findById(id: string) {
     const user = await this.db.query.user.findFirst({
       where: eq(DBSchema.user.id, id),
-      columns: withQueryColumns(DBSchema.user, [
-        'id',
-        'createdAt',
-        'updatedAt',
-        'firstname',
-        'lastname',
-        'email',
-        'imageUrl',
-      ]),
+      columns: withQueryColumns(DBSchema.user, this.defaultUserSelect),
     });
     return user;
   }
-  async findAll() {
+  async findAll(
+    options: Pick<
+      QueryOptions<typeof DBSchema.user>,
+      'select' | 'where' | 'orderBy'
+    >,
+  ) {
     return await this.db
       .select(
-        withColumns(DBSchema.user, [
-          'id',
-          'createdAt',
-          'updatedAt',
-          'firstname',
-          'lastname',
-          'email',
-          'imageUrl',
-        ]),
+        withColumns(DBSchema.user, options.select || this.defaultUserSelect),
       )
       .from(DBSchema.user)
-      .where(undefined)
-      .orderBy(desc(DBSchema.user.createdAt));
+      .where(options.where)
+      .orderBy(options.orderBy || desc(DBSchema.user.createdAt));
   }
-  async findAllPaginated(options: QueryOptions) {
+  async findAllPaginated({
+    select = ['id', 'createdAt', 'firstname', 'lastname', 'email', 'imageUrl'],
+    ...options
+  }: QueryOptions<typeof DBSchema.user>) {
     const items = await this.db
-      .select(
-        withColumns(DBSchema.user, [
-          'id',
-          'createdAt',
-          'firstname',
-          'lastname',
-          'email',
-          'imageUrl',
-        ]),
-      )
+      .select(withColumns(DBSchema.user, select))
       .from(DBSchema.user)
       .where(options.where)
       .limit(options.limit)
       .offset(options.offset)
-      .orderBy(desc(DBSchema.user.createdAt));
+      .orderBy(options.orderBy || desc(DBSchema.user.createdAt));
 
     const [result] = await this.db
       .select({ totalItems: count() })
       .from(DBSchema.user)
       .where(options.where);
-    this.logger.log(result);
     return { items, totalItems: result.totalItems };
   }
   async update(
@@ -133,17 +130,7 @@ export class UsersService {
       .update(DBSchema.user)
       .set(data)
       .where(eq(DBSchema.user.id, id))
-      .returning(
-        withColumns(DBSchema.user, [
-          'id',
-          'createdAt',
-          'updatedAt',
-          'firstname',
-          'lastname',
-          'email',
-          'imageUrl',
-        ]),
-      );
+      .returning(withColumns(DBSchema.user, this.defaultUserSelect));
     return user;
   }
   async delete(id: string) {
@@ -152,16 +139,7 @@ export class UsersService {
   }
   async getRolesByUserId(userId: string) {
     return this.db
-      .select(
-        withColumns(DBSchema.role, [
-          'id',
-          'role',
-          'isActive',
-          'userId',
-          'createdAt',
-          'updatedAt',
-        ]),
-      )
+      .select(withColumns(DBSchema.role, this.defaultRoleSelect))
       .from(DBSchema.role)
       .where(eq(DBSchema.role.userId, userId));
   }

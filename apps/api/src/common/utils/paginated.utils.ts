@@ -6,13 +6,13 @@ export class PaginatedDto {
   @IsNumber()
   @IsPositive()
   @IsOptional()
-  @ApiProperty({ example: 1 })
+  @ApiProperty({ example: 1, required: false })
   currPage: number;
 
   @IsNumber()
   @IsPositive()
   @IsOptional()
-  @ApiProperty({ example: 10 })
+  @ApiProperty({ example: 10, required: false })
   perPage: number;
 }
 
@@ -23,7 +23,7 @@ interface Options {
   currPage?: number;
 }
 
-export function getLimitAndOffset(options: PaginatedDto) {
+export function getLimitAndOffset(options: Partial<PaginatedDto>) {
   const currentPage = options?.currPage || 1;
   const perPage = options?.perPage || env.DEFAULT_PAGE_SIZE;
   const limit = perPage;

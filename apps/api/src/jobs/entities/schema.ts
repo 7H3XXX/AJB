@@ -17,7 +17,7 @@ const experienceLevelEnum = pg.pgEnum('job_experience_level', [
   'expert',
 ]);
 
-const listingTypeEnum = pg.pgEnum('jobListing_type', [
+export const listingTypeEnum = pg.pgEnum('jobListing_type', [
   'full-time',
   'part-time',
   'freelance',
@@ -35,11 +35,15 @@ const listingStatusEnum = pg.pgEnum('job_listing_status', [
   'suspended',
 ]);
 
-export type jobListingStatus = InferSelectModel<typeof jobListing>['status'];
-export type jobListingType = InferSelectModel<typeof jobListing>['type'];
-export type jobListingExperienceLevel = InferSelectModel<
-  typeof jobListing
->['experienceLevel'];
+export type jobListingStatus = NonNullable<
+  InferSelectModel<typeof jobListing>['status']
+>;
+export type jobListingType = NonNullable<
+  InferSelectModel<typeof jobListing>['type']
+>;
+export type jobListingExperienceLevel = NonNullable<
+  InferSelectModel<typeof jobListing>['experienceLevel']
+>;
 
 export const jobListing = pg.pgTable('job_listing', {
   ...baseSchema,
@@ -73,9 +77,18 @@ export const jobListing = pg.pgTable('job_listing', {
 });
 
 export const jobListingRelations = relations(jobListing, ({ one, many }) => ({
-  category: one(jobCategory),
-  createdBy: one(user),
-  organisation: one(organisation),
+  category: one(jobCategory, {
+    fields: [jobListing.categoryId],
+    references: [jobCategory.id],
+  }),
+  createdBy: one(user, {
+    fields: [jobListing.createdById],
+    references: [user.id],
+  }),
+  organisation: one(organisation, {
+    fields: [jobListing.organisationId],
+    references: [organisation.id],
+  }),
   jobToSkills: many(jobListingToJobSkill),
 }));
 
