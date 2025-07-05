@@ -39,7 +39,7 @@ export class JobsService {
   }
 
   async findJobListingById(id: string) {
-    return await this.db.query.jobListing.findFirst({
+    const foundJob = await this.db.query.jobListing.findFirst({
       with: {
         category: {
           columns: withQueryColumns(DBSchema.jobCategory, [
@@ -57,15 +57,28 @@ export class JobsService {
             'imageUrl',
           ]),
         },
+        jobToSkills: {
+          with: {
+            jobSkill: {
+              columns: withQueryColumns(DBSchema.jobSkill, ['id', 'name']),
+            },
+          },
+        },
       },
       where: eq(DBSchema.jobListing.id, id),
     });
+    if (!foundJob) return null;
+    const { jobToSkills, ...flattenedJob } = foundJob;
+    flattenedJob['skills'] = jobToSkills.map((value) => ({
+      id: value.jobSkill?.id,
+      name: value.jobSkill?.name,
+    }));
+    return flattenedJob;
   }
 
   async findAllJobListings(
     options: PageOptions & Partial<JobListingFilterDto>,
   ) {
-    console.log(options);
     const conditions: (SQL<unknown> | undefined)[] = [
       eq(DBSchema.jobListing.isActive, true),
     ];

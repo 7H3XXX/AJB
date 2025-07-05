@@ -104,8 +104,14 @@ export const jobListingToJobSkill = pg.pgTable(
 export const jobListingToJobSkillRelations = relations(
   jobListingToJobSkill,
   ({ one }) => ({
-    jobListing: one(jobListing),
-    jobSkill: one(jobSkill),
+    jobListing: one(jobListing, {
+      fields: [jobListingToJobSkill.jobId],
+      references: [jobListing.id],
+    }),
+    jobSkill: one(jobSkill, {
+      fields: [jobListingToJobSkill.skillId],
+      references: [jobSkill.id],
+    }),
   }),
 );
 
