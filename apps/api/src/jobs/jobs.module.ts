@@ -2,9 +2,10 @@ import { Module } from '@nestjs/common';
 import { PublicJobListingController } from './controllers/public-listings.controller';
 import { JobsService } from './jobs.service';
 import { DatabaseModule } from 'src/database/database.module';
+import { PublicJobCategoriesController } from './controllers/public-categories.controller';
 
 @Module({
-  controllers: [PublicJobListingController],
+  controllers: [PublicJobListingController, PublicJobCategoriesController],
   providers: [JobsService],
   imports: [DatabaseModule],
 })

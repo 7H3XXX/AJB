@@ -162,4 +162,15 @@ export class JobsService {
       .where(and(...conditions));
     return { items, totalItems: result.totalItems };
   }
+
+  // Job Categories
+  async findAllCategories() {
+    return await this.db.query.jobCategory.findMany({
+      columns: withQueryColumns(DBSchema.jobCategory, [
+        'id',
+        'iconUrl',
+        'name',
+      ]),
+    });
+  }
 }
