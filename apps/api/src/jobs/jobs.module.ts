@@ -2,14 +2,14 @@ import { Module } from '@nestjs/common';
 import { PublicJobListingController } from './controllers/public-listings.controller';
 import { JobsService } from './jobs.service';
 import { DatabaseModule } from 'src/database/database.module';
-import { PublicJobCategoriesController } from './controllers/public-categories.controller';
+import { JobListingMiscController } from './controllers/misc.controller';
 import { JobListingsController } from './controllers/listings.controller';
 import { UsersModule } from 'src/users/users.module';
 
 @Module({
   controllers: [
     PublicJobListingController,
-    PublicJobCategoriesController,
+    JobListingMiscController,
     JobListingsController,
   ],
   providers: [JobsService],

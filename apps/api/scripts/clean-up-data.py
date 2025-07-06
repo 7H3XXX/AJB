@@ -32,4 +32,7 @@ with open("job-listings-new.json", "w") as f:
     json.dump(listings, f)
 
 with open("job-skills-new.json", "w") as f:
-    json.dump(skills, f)
+    json.dump([
+        {"name": skill_name} for skill_name in
+        set(skill.get("name") for skill in skills)
+    ], f)

@@ -190,7 +190,7 @@ export class JobsService {
     return { items, totalItems: result.totalItems };
   }
 
-  // Job Categories
+  // Job Misc.
   async findAllCategories() {
     return await this.db.query.jobCategory.findMany({
       columns: withQueryColumns(DBSchema.jobCategory, [
@@ -198,6 +198,13 @@ export class JobsService {
         'iconUrl',
         'name',
       ]),
+      orderBy: DBSchema.jobCategory.name,
+    });
+  }
+  async findAllJobSkills() {
+    return await this.db.query.jobSkill.findMany({
+      columns: withQueryColumns(DBSchema.jobSkill, ['id', 'name']),
+      orderBy: DBSchema.jobSkill.name,
     });
   }
 }
