@@ -10,7 +10,7 @@ export const jobCategory = pg.pgTable('job_category', {
   iconUrl: pg.text(),
 });
 
-const experienceLevelEnum = pg.pgEnum('job_experience_level', [
+export const experienceLevelEnum = pg.pgEnum('job_experience_level', [
   'no-experience',
   'fresher',
   'intermediate',
@@ -26,9 +26,9 @@ export const listingTypeEnum = pg.pgEnum('jobListing_type', [
   'fixed-price',
 ]);
 
-const listingStatusEnum = pg.pgEnum('job_listing_status', [
+export const listingStatusEnum = pg.pgEnum('job_listing_status', [
   'created',
-  'draft',
+  'drafted',
   'pending-review',
   'approved',
   'rejected',

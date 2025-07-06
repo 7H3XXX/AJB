@@ -23,6 +23,7 @@ export class PublicJobListingController {
     const { items, totalItems } = await this.jobsService.findAllJobListings({
       limit,
       offset,
+      isActive: true,
       ...query,
     });
     return {

@@ -28,4 +28,35 @@ export class JobListingMiscController {
       data: skills,
     };
   }
+
+  @Get('job-types')
+  @ApiOperation({ summary: 'Returns a list of job types' })
+  getJobTypes() {
+    const types = this.jobsService.findAllJobTypes();
+    return {
+      status: true,
+      message: 'Job types retrieved succeesfully',
+      data: types,
+    };
+  }
+  @Get('job-status')
+  @ApiOperation({ summary: 'Returns a list of job status' })
+  getJobStatus() {
+    const status = this.jobsService.findAllJobStatus();
+    return {
+      status: true,
+      message: 'Job status retrieved succeesfully',
+      data: status,
+    };
+  }
+  @Get('job-experience-levels')
+  @ApiOperation({ summary: 'Returns a list of job experience levels' })
+  getJobExperienceLevels() {
+    const levels = this.jobsService.findAllJobExperienceLevels();
+    return {
+      status: true,
+      message: 'Job experience levels retrieved succeesfully',
+      data: levels,
+    };
+  }
 }

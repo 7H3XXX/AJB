@@ -16,6 +16,7 @@ import {
   Database,
   InjectDatabase,
   PageOptions,
+  pgEnumToObject,
   TableColumns,
   withQueryColumns,
 } from 'src/database/utils';
@@ -23,6 +24,11 @@ import {
   JobListingFilterDto,
   PublicJobListingFilterDto,
 } from './dto/job-listings.dto';
+import {
+  experienceLevelEnum,
+  listingStatusEnum,
+  listingTypeEnum,
+} from './entities/schema';
 
 @Injectable()
 export class JobsService {
@@ -86,10 +92,11 @@ export class JobsService {
       Partial<PublicJobListingFilterDto> &
       Partial<JobListingFilterDto>,
   ) {
-    const conditions: (SQL<unknown> | undefined)[] = [
-      eq(DBSchema.jobListing.isActive, true),
-    ];
+    const conditions: (SQL<unknown> | undefined)[] = [];
     // query filters
+    if (options.isActive) {
+      conditions.push(eq(DBSchema.jobListing.isActive, options.isActive));
+    }
     if (options.categoryIds) {
       conditions.push(
         inArray(DBSchema.jobListing.categoryId, options.categoryIds),
@@ -206,5 +213,14 @@ export class JobsService {
       columns: withQueryColumns(DBSchema.jobSkill, ['id', 'name']),
       orderBy: DBSchema.jobSkill.name,
     });
+  }
+  findAllJobTypes() {
+    return pgEnumToObject(listingTypeEnum);
+  }
+  findAllJobExperienceLevels() {
+    return pgEnumToObject(experienceLevelEnum);
+  }
+  findAllJobStatus() {
+    return pgEnumToObject(listingStatusEnum);
   }
 }

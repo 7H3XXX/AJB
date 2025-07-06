@@ -87,3 +87,21 @@ export interface QueryOptions<T extends PgTable> extends PageOptions {
   orderBy?: PgColumn | SQL<unknown>;
   select?: TableColumns<T>;
 }
+
+// ------------------- Enums
+
+function toTitleCase(value: string) {
+  return value
+    .toLowerCase()
+    .replaceAll('-', ' ')
+    .split(' ')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+export function pgEnumToObject(enums: { enumValues: string[] }) {
+  return enums.enumValues.map((val) => ({
+    label: toTitleCase(val),
+    value: val,
+  }));
+}

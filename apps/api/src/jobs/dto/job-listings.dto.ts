@@ -2,6 +2,7 @@ import { ApiProperty, PickType } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import {
   IsArray,
+  IsBoolean,
   IsNumber,
   IsOptional,
   IsString,
@@ -90,4 +91,9 @@ export class JobListingFilterDto extends PickType(PublicJobListingFilterDto, [
   'currPage',
   'perPage',
   'organisationId',
-]) {}
+]) {
+  @IsBoolean()
+  @IsOptional()
+  @ApiProperty({ required: false })
+  isActive?: boolean;
+}
