@@ -17,10 +17,10 @@ type ExceptionResponse =
   | string
   | { message: string | string[]; errorCode: string };
 
-const genericHttpExceptionErrorCodes = {
+const genericHttpExceptionErrorCodes: Record<string, string> = {
+  '400': ApiErrorCodes.BAD_REQUEST,
   '429': ApiErrorCodes.TOO_MANY_REQUESTS,
   '500': ApiErrorCodes.INTERNAL_SERVER_ERROR,
-  '400': ApiErrorCodes.BAD_REQUEST,
 };
 
 @Catch()
@@ -41,7 +41,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
     if (exception instanceof HttpException) {
       status = exception.getStatus();
       const exceptionResponse = exception.getResponse() as ExceptionResponse;
-
       if (typeof exceptionResponse === 'string') {
         message = exceptionResponse;
       } else if (
@@ -85,11 +84,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
       }
     } else if (
       genericHttpExceptionErrorCodes[String(status)] &&
-      !Object.values(genericHttpExceptionErrorCodes).includes(
-        genericHttpExceptionErrorCodes[String(status)],
-      )
+      errorCode === ApiErrorCodes.UNKNOWN_ERROR
     ) {
-      errorCode = genericHttpExceptionErrorCodes[String(status)] as string;
+      errorCode = genericHttpExceptionErrorCodes[String(status)];
     }
     response.status(status).json({
       errorCode,

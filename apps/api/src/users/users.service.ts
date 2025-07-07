@@ -84,11 +84,22 @@ export class UsersService {
 
       return user;
     } catch ({ cause }) {
-      const { detail } = cause as { detail: string };
-      throw new BadRequestException({
-        message: detail,
-        errorCode: ApiErrorCodes.EMAIL_ALREADY_REGISTERED,
-      });
+      const { detail, constraint } = cause as {
+        detail: string;
+        constraint: string;
+      };
+      const catalogOfThingsThatCouldGoWrong = {
+        user_email_unique: {
+          message: detail,
+          errorCode: ApiErrorCodes.EMAIL_ALREADY_REGISTERED,
+        },
+      };
+      throw new BadRequestException(
+        catalogOfThingsThatCouldGoWrong[constraint] || {
+          message: 'User registration failed!',
+          errorCode: ApiErrorCodes.USER_REGISTRATION_FAILED,
+        },
+      );
     }
   }
   async findById(id: string) {
