@@ -84,8 +84,9 @@ export class UsersService {
 
       return user;
     } catch ({ cause }) {
+      const { detail } = cause as { detail: string };
       throw new BadRequestException({
-        message: cause as string,
+        message: detail,
         errorCode: ApiErrorCodes.EMAIL_ALREADY_REGISTERED,
       });
     }

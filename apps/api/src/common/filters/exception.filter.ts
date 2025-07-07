@@ -17,6 +17,12 @@ type ExceptionResponse =
   | string
   | { message: string | string[]; errorCode: string };
 
+const genericHttpExceptionErrorCodes = {
+  '429': ApiErrorCodes.TOO_MANY_REQUESTS,
+  '500': ApiErrorCodes.INTERNAL_SERVER_ERROR,
+  '400': ApiErrorCodes.BAD_REQUEST,
+};
+
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
   logger = new Logger(HttpExceptionFilter.name);
@@ -77,6 +83,13 @@ export class HttpExceptionFilter implements ExceptionFilter {
           }),
         );
       }
+    } else if (
+      genericHttpExceptionErrorCodes[String(status)] &&
+      !Object.values(genericHttpExceptionErrorCodes).includes(
+        genericHttpExceptionErrorCodes[String(status)],
+      )
+    ) {
+      errorCode = genericHttpExceptionErrorCodes[String(status)] as string;
     }
     response.status(status).json({
       errorCode,
