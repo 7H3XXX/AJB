@@ -55,6 +55,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       }
     } else {
       status = HttpStatus.INTERNAL_SERVER_ERROR;
+      errorCode = ApiErrorCodes.INTERNAL_SERVER_ERROR;
       message = 'Internal server error';
       this.logger.error(exception);
     }
