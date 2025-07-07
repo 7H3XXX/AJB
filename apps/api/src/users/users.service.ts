@@ -22,6 +22,7 @@ import {
 import { CreateUserDto } from './dto/user.dto';
 import { MinioService } from 'libs/minio/minio.service';
 import { getGravatarUrl } from 'libs/gravatar/main';
+import { ApiErrorCodes } from '@repo/types';
 
 @Injectable()
 export class UsersService {
@@ -83,7 +84,10 @@ export class UsersService {
 
       return user;
     } catch ({ cause }) {
-      throw new BadRequestException(cause);
+      throw new BadRequestException({
+        message: cause as string,
+        errorCode: ApiErrorCodes.EMAIL_ALREADY_REGISTERED,
+      });
     }
   }
   async findById(id: string) {
@@ -149,9 +153,10 @@ export class UsersService {
   async updateProfileImageByUserId(userId: string, dataUri: string) {
     const user = await this.findById(userId);
     if (!user)
-      throw new ForbiddenException(
-        `User with the matching id not found: ${userId}`,
-      );
+      throw new ForbiddenException({
+        message: `User with the matching id not found: ${userId}`,
+        errorCode: ApiErrorCodes.RESOURCE_NOT_FOUND,
+      });
     const blob = await this.minioService.putDataUri(dataUri);
     return await this.update(userId, { imageUrl: blob.baseUrl });
   }

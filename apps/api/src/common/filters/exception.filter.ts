@@ -11,6 +11,11 @@ import { env } from 'env.config';
 import { Response, Request } from 'express';
 import { AppContracts } from 'src/app.contracts';
 import { EventsAppInternalErrorDto } from 'src/events/dto/app-events.dto';
+import { ApiErrorCodes } from '@repo/types';
+
+type ExceptionResponse =
+  | string
+  | { message: string | string[]; errorCode: string };
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -24,24 +29,28 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const request = ctx.getRequest<Request>();
 
     let status = 500;
-    let message: string | Record<string, string> = 'Internal server error';
+    let message: string | Record<string, string> = 'Something went wrong!';
+    let errorCode: string = ApiErrorCodes.UNKNOWN_ERROR;
 
     if (exception instanceof HttpException) {
       status = exception.getStatus();
-      const exceptionResponse = exception.getResponse();
+      const exceptionResponse = exception.getResponse() as ExceptionResponse;
 
       if (typeof exceptionResponse === 'string') {
         message = exceptionResponse;
       } else if (
         typeof exceptionResponse === 'object' &&
         exceptionResponse !== null &&
-        Object.hasOwn(exceptionResponse as Record<string, unknown>, 'message')
+        Object.hasOwn(exceptionResponse, 'message')
       ) {
-        const msg = (exceptionResponse as Record<string, unknown>)['message'];
-        if (Array.isArray(msg)) {
-          message = msg.join(', ');
+        const excMessage = exceptionResponse.message;
+        if (Array.isArray(excMessage)) {
+          message = excMessage.join(', ');
         } else {
-          message = msg as string;
+          message = excMessage;
+        }
+        if (exceptionResponse?.errorCode) {
+          errorCode = exceptionResponse?.errorCode;
         }
       }
     } else {
@@ -69,6 +78,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       }
     }
     response.status(status).json({
+      errorCode,
       status: false,
       message,
       data: null,
