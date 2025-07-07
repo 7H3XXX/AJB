@@ -15,7 +15,16 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "passThroughEnv": ["DATABASE_SEEDING"]
+    },
+    "db:generate": {
+      "cache": true,
+      "persistent": false
+    },
+    "db:migrate": {
+      "cache": true,
+      "persistent": false
     }
   }
 }
