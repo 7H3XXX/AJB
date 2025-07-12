@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthUser } from '../auth.interface';
+import { ApiErrorCodes } from '@repo/types';
 
 export const GetUser = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
@@ -13,9 +14,11 @@ export const GetUser = createParamDecorator(
       .getRequest();
     const { user } = request;
     if (!user) {
-      throw new BadRequestException(
-        'User not found in request. Authentication required. [ERR_CODE-2111]',
-      );
+      throw new BadRequestException({
+        message:
+          'User not found in request. Authentication required. [ERR_CODE-2111]',
+        errorCode: ApiErrorCodes.AUTHENTICATION_REQUIRED,
+      });
     }
     return user;
   },

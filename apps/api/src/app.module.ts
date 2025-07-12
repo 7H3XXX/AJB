@@ -11,6 +11,8 @@ import { EventsModule } from './events/events.module';
 import { MinioModule } from 'libs/minio/minio.module';
 import { OrganisationsModule } from './organisations/organisations.module';
 import { JobsModule } from './jobs/jobs.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -19,6 +21,25 @@ import { JobsModule } from './jobs/jobs.module';
       validate: (config) => {
         return envSchema.parse(config);
       },
+    }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          name: 'short',
+          ttl: 1000,
+          limit: 10,
+        },
+        {
+          name: 'medium',
+          ttl: 10000,
+          limit: 40,
+        },
+        {
+          name: 'long',
+          ttl: 60000,
+          limit: 200,
+        },
+      ],
     }),
     EventEmitterModule.forRoot(),
     MailModule.forRoot({
@@ -56,6 +77,9 @@ import { JobsModule } from './jobs/jobs.module';
     JobsModule,
   ],
   controllers: [],
-  providers: [HttpExceptionFilter],
+  providers: [
+    HttpExceptionFilter,
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
+  ],
 })
 export class AppModule {}

@@ -5,6 +5,7 @@ import { dataUriToBuffer } from 'data-uri-to-buffer';
 import { Readable } from 'stream';
 import { randomBytes } from 'crypto';
 import { MinioImage, MinioModuleOptions } from './minio.interface';
+import { cleanUpFileName } from './minio.utils';
 
 @Injectable()
 export class MinioService {
@@ -72,16 +73,24 @@ export class MinioService {
     bucketName?: string,
     expires?: number,
   ): Promise<MinioImage> {
+    if (!dataUri)
+      throw new Error(
+        `The 'dataUri' parameter is required and cannot be undefined. Please provide a valid data URI string to upload.`,
+      );
     const buffer = dataUriToBuffer(dataUri);
     const dataStream = new Readable();
     dataStream.push(Buffer.from(buffer.buffer));
     dataStream.push(null);
 
     // set nullable params
-    const fileEx = MEDIA_EXTENSIONS[buffer.type];
-    objectName =
-      objectName ?? `blob_${randomBytes(6).toString('hex')}${fileEx || ''}`;
+    const fileEx = MEDIA_EXTENSIONS[buffer.type] || undefined;
+    objectName = cleanUpFileName(
+      objectName ?? `blob_${randomBytes(6).toString('hex')}`,
+    );
     bucketName = bucketName ?? this.options.bucketName;
+    if (fileEx && !objectName.endsWith(fileEx)) {
+      objectName += fileEx;
+    }
 
     const putResp = await this.client.putObject(
       bucketName,
