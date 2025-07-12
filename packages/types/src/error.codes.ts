@@ -96,6 +96,12 @@ export const ApiErrorCodes = {
   INVALID_SORT_PARAMETER: 'INVALID_SORT_PARAMETER',
   INVALID_FILTER_PARAMETER: 'INVALID_FILTER_PARAMETER',
   NO_SEARCH_RESULTS: 'NO_SEARCH_RESULTS',
+
+  // --- Job and Listings Errors ---
+  JOB_LISTING_NOT_FOUND: 'JOB_LISTING_NOT_FOUND',
+
+  // --- Organisations Errors ---
+  ORGANISATION_NOT_FOUND: 'ORGANISATION_NOT_FOUND',
 } as const;
 
 export type ApiErrorCode = (typeof ApiErrorCodes)[keyof typeof ApiErrorCodes];

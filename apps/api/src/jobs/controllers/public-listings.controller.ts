@@ -41,7 +41,7 @@ export class PublicJobListingController {
     if (!foundJob) {
       throw new NotFoundException({
         message: `No job found with a matching id: ${id}`,
-        errorCode: ApiErrorCodes.RESOURCE_NOT_FOUND,
+        errorCode: ApiErrorCodes.JOB_LISTING_NOT_FOUND,
       });
     }
     return {

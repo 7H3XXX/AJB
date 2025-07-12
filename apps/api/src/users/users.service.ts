@@ -8,6 +8,7 @@ import {
   Database,
   InjectDatabase,
   QueryOptions,
+  TableColumns,
   withColumns,
   withQueryColumns,
 } from 'src/database/utils';
@@ -27,30 +28,27 @@ import { ApiErrorCodes } from '@repo/types';
 @Injectable()
 export class UsersService {
   logger = new Logger(UsersService.name);
-  defaultUserSelect: NonNullable<QueryOptions<typeof DBSchema.user>['select']>;
-  defaultRoleSelect: NonNullable<QueryOptions<typeof DBSchema.role>['select']>;
+  public readonly dataFields: TableColumns<typeof DBSchema.user> = [
+    'id',
+    'createdAt',
+    'updatedAt',
+    'firstname',
+    'lastname',
+    'email',
+    'imageUrl',
+  ];
+  public readonly defaultRoleSelect: TableColumns<typeof DBSchema.role> = [
+    'id',
+    'role',
+    'isActive',
+    'userId',
+    'createdAt',
+    'updatedAt',
+  ];
   constructor(
     @InjectDatabase private readonly db: Database,
     private readonly minioService: MinioService,
-  ) {
-    this.defaultUserSelect = [
-      'id',
-      'createdAt',
-      'updatedAt',
-      'firstname',
-      'lastname',
-      'email',
-      'imageUrl',
-    ];
-    this.defaultRoleSelect = [
-      'id',
-      'role',
-      'isActive',
-      'userId',
-      'createdAt',
-      'updatedAt',
-    ];
-  }
+  ) {}
   async create(
     {
       email,
@@ -69,7 +67,7 @@ export class UsersService {
           ...data,
         })
         .returning(
-          withColumns(DBSchema.user, options?.select || this.defaultUserSelect),
+          withColumns(DBSchema.user, options?.select || this.dataFields),
         );
       await this.db.insert(DBSchema.role).values([
         {
@@ -105,7 +103,7 @@ export class UsersService {
   async findById(id: string) {
     const user = await this.db.query.user.findFirst({
       where: eq(DBSchema.user.id, id),
-      columns: withQueryColumns(DBSchema.user, this.defaultUserSelect),
+      columns: withQueryColumns(DBSchema.user, this.dataFields),
     });
     return user;
   }
@@ -116,9 +114,7 @@ export class UsersService {
     >,
   ) {
     return await this.db
-      .select(
-        withColumns(DBSchema.user, options.select || this.defaultUserSelect),
-      )
+      .select(withColumns(DBSchema.user, options.select || this.dataFields))
       .from(DBSchema.user)
       .where(options.where)
       .orderBy(options.orderBy || desc(DBSchema.user.createdAt));
@@ -149,18 +145,12 @@ export class UsersService {
       .update(DBSchema.user)
       .set(data)
       .where(eq(DBSchema.user.id, id))
-      .returning(withColumns(DBSchema.user, this.defaultUserSelect));
+      .returning(withColumns(DBSchema.user, this.dataFields));
     return user;
   }
   async delete(id: string) {
     await this.db.delete(DBSchema.user).where(eq(DBSchema.user.id, id));
     return null;
-  }
-  async getRolesByUserId(userId: string) {
-    return this.db
-      .select(withColumns(DBSchema.role, this.defaultRoleSelect))
-      .from(DBSchema.role)
-      .where(eq(DBSchema.role.userId, userId));
   }
   async updateProfileImageByUserId(userId: string, dataUri: string) {
     const user = await this.findById(userId);

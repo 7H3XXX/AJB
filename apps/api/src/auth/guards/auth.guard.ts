@@ -9,11 +9,13 @@ import { Request } from 'express';
 import { UsersService } from 'src/users/users.service';
 import { AuthRole, AuthUser } from '../auth.interface';
 import { ApiErrorCodes } from '@repo/types';
+import { UserRolesService } from 'src/users/users-roles.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly jwtService: JwtService,
+    private readonly userRolesService: UserRolesService,
     private readonly userService: UsersService,
   ) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -32,7 +34,7 @@ export class AuthGuard implements CanActivate {
       // Retrieve user data and roles
       const { sub }: { sub: string } = await this.jwtService.verifyAsync(token);
       const user = await this.userService.findById(sub);
-      const roles = await this.userService.getRolesByUserId(sub);
+      const roles = await this.userRolesService.getRolesByUserId(sub);
       if (!user) {
         throw new UnauthorizedException({
           message:
