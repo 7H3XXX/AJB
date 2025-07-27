@@ -26,11 +26,13 @@
     },
     "db:generate": {
       "cache": true,
-      "persistent": false
+      "persistent": false,
+      "passThroughEnv": ["*"]
     },
     "db:migrate": {
       "cache": false,
-      "persistent": false
+      "persistent": false,
+      "passThroughEnv": ["*"]
     }
   }
 }
