@@ -1,17 +1,44 @@
 {
   "extends": ["//"],
+  "globalEnv": [
+    "NODE_ENV",
+    "PORT",
+    "DEV_TEAM_EMAILS",
+    "LOGGER_COLORS",
+    "LOGGER_JSON",
+    "API_DOCS_PATH",
+    "PROJECT_TITLE",
+    "PROJECT_DESCRIPTION",
+    "PROJECT_VERSION",
+    "SMTP_SERVER",
+    "SMTP_PORT",
+    "SMTP_USERNAME",
+    "SMTP_PASSWORD",
+    "SMTP_SSL",
+    "DATABASE_HOST",
+    "DATABASE_NAME",
+    "DATABASE_USER",
+    "DATABASE_PWD",
+    "DATABASE_PORT",
+    "DATABASE_SSL",
+    "MINIO_HOST",
+    "MINIO_PORT",
+    "MINIO_SSL",
+    "MINIO_ACCESS_KEY",
+    "MINIO_SECRET_KEY",
+    "MINIO_DEFAULT_BUCKET",
+    "MINIO_DEFAULT_REGION",
+    "JWT_SECRET",
+    "JWT_EXPIRY"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$"],
-      "passThroughEnv": ["*"],
-      "env": ["*"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "start": {
       "dependsOn": ["build"],
-      "passThroughEnv": ["*"],
-      "env": ["*"],
       "cache": true,
       "persistent": true
     },
@@ -23,21 +50,15 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true,
-      "passThroughEnv": ["*"],
-      "env": ["*"]
+      "persistent": true
     },
     "db:generate": {
       "cache": true,
-      "persistent": false,
-      "passThroughEnv": ["*"],
-      "env": ["*"]
+      "persistent": false
     },
     "db:migrate": {
       "cache": false,
-      "persistent": false,
-      "passThroughEnv": ["*"],
-      "env": ["*"]
+      "persistent": false
     }
   }
 }
