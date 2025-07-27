@@ -62,6 +62,7 @@
     "JWT_SECRET",
     "JWT_EXPIRY"
   ],
+  "envMode": "loose",
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
