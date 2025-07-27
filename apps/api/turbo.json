@@ -5,11 +5,13 @@
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$"],
       "passThroughEnv": ["*"],
+      "env": ["*"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "start": {
       "dependsOn": ["build"],
       "passThroughEnv": ["*"],
+      "env": ["*"],
       "cache": true,
       "persistent": true
     },
@@ -22,17 +24,20 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "passThroughEnv": ["*"]
+      "passThroughEnv": ["*"],
+      "env": ["*"]
     },
     "db:generate": {
       "cache": true,
       "persistent": false,
-      "passThroughEnv": ["*"]
+      "passThroughEnv": ["*"],
+      "env": ["*"]
     },
     "db:migrate": {
       "cache": false,
       "persistent": false,
-      "passThroughEnv": ["*"]
+      "passThroughEnv": ["*"],
+      "env": ["*"]
     }
   }
 }
