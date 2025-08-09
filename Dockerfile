@@ -22,4 +22,4 @@ EXPOSE 5000
 EXPOSE 3000
 COPY --from=builder /app .
 # RUN turbo db:migrate
-CMD ["turbo", "db:migrate", "&&", "pnpm", "start"]
+CMD ["turbo", "db:migrate", "start"]
