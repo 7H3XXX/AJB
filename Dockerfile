@@ -1,8 +1,5 @@
 FROM node:22.16.0 AS base
-ENV PNPM_HOME="/usr/local/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN mkdir -p $PNPM_HOME
-RUN npm install -g pnpm
+RUN npm install --location=global pnpm
 RUN pnpm add turbo --global
 
 FROM base AS prune
