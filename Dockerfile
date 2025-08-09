@@ -21,5 +21,5 @@ WORKDIR /app
 EXPOSE 5000
 EXPOSE 3000
 COPY --from=builder /app .
-RUN turbo db:migrate
-CMD ["pnpm", "start"]
+# RUN turbo db:migrate
+CMD ["turbo", "db:migrate", "&&", "pnpm", "start"]
