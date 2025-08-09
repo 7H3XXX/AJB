@@ -1,5 +1,8 @@
 FROM node:22.16.0 AS base
-RUN npm install --location=global pnpm
+ENV PNPM_HOME="/usr/local/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN mkdir -p $PNPM_HOME
+RUN npm install -g pnpm
 RUN pnpm add turbo --global
 
 FROM base AS prune
@@ -11,6 +14,7 @@ RUN turbo prune web
 FROM base AS builder
 WORKDIR /app
 COPY --from=prune /app/out .
+RUN npm install -g pnpm
 RUN pnpm install
 RUN turbo build
 
