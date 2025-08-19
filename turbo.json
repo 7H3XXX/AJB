@@ -23,7 +23,8 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "inputs": [".env*"]
+      "inputs": [".env*"],
+      "dependsOn": ["^build"]
     },
     "db:generate": {
       "cache": true,
