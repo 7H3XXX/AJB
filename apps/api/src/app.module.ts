@@ -13,9 +13,11 @@ import { OrganisationsModule } from './organisations/organisations.module';
 import { JobsModule } from './jobs/jobs.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { SentryModule } from '@sentry/nestjs/setup';
 
 @Module({
   imports: [
+    SentryModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
       validate: (config) => {

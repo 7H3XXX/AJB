@@ -54,6 +54,9 @@ export const envSchema = z.object({
   // JWT Configs
   JWT_SECRET: z.string().default('3a0ef9ac-93ed-4f5e-a4df-838b602a19cf'),
   JWT_EXPIRY: z.string().default('3d'),
+
+  // Sentry Configs
+  SENTRY_DSN: z.string().default(''),
 });
 
 export type Env = z.infer<typeof envSchema>;

@@ -12,6 +12,7 @@ import { Response, Request } from 'express';
 import { AppContracts } from 'src/app.contracts';
 import { EventsAppInternalErrorDto } from 'src/events/dto/app-events.dto';
 import { ApiErrorCodes } from '@repo/types';
+import { SentryExceptionCaptured } from '@sentry/nestjs';
 
 type ExceptionResponse =
   | string
@@ -29,6 +30,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
+  @SentryExceptionCaptured()
   catch(exception: HttpException, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<Response>();
