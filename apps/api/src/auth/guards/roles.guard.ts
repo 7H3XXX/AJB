@@ -6,7 +6,6 @@ import {
   Type,
   ForbiddenException,
 } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
@@ -29,7 +28,6 @@ export function RolesGuard(
   @Injectable()
   class MixinRolesGuard extends AuthGuard {
     constructor(
-      private readonly reflector: Reflector,
       jwtService: JwtService,
       userService: UsersService,
       userRolesService: UserRolesService,
