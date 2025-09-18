@@ -34,7 +34,7 @@
     "isActive": false,
     "website": "https://www.linkedin.com/company/facebook",
     "categoryName": "Customer Support",
-    "oragnisationName": "Facebook Messenger",
+    "oragnisationName": "Creative Cloud",
     "skills": [
       "TypeScript",
       "Data Analysis",
@@ -86,7 +86,7 @@
     "isActive": true,
     "website": "https://www.linkedin.com/company/shopping",
     "categoryName": "Operations",
-    "oragnisationName": "Shopping",
+    "oragnisationName": "Git",
     "skills": [
       "Mobile Development",
       "UI/UX Design",
@@ -167,7 +167,7 @@
     "isActive": true,
     "website": "https://cloud.google.com",
     "categoryName": "Design",
-    "oragnisationName": "Google Cloud",
+    "oragnisationName": "Grooveshark",
     "skills": [
       "Cloud Computing",
       "Customer Support",
@@ -247,7 +247,7 @@
     "isActive": false,
     "website": "https://cloud.google.com",
     "categoryName": "Healthcare",
-    "oragnisationName": "Google Cloud",
+    "oragnisationName": "KFC",
     "skills": ["Agile Methodologies", "Business Analysis"],
     "createdAt": "2025-06-29 17:17:17.345345",
     "updatedAt": "2025-07-02 20:20:20.456456"
@@ -454,7 +454,7 @@
     "isActive": true,
     "website": "https://www.linkedin.com/company/graphic-design/",
     "categoryName": "Customer Support",
-    "oragnisationName": "Graphic Design",
+    "oragnisationName": "Instagram",
     "skills": ["TypeScript", "SQL", "Vue.js"],
     "createdAt": "2025-07-02 05:05:05.252525",
     "updatedAt": "2025-07-03 19:28:26.482694"
@@ -528,7 +528,7 @@
     "isActive": false,
     "website": "https://photos.google.com/",
     "categoryName": "Research",
-    "oragnisationName": "Google Photos",
+    "oragnisationName": "LinkedIn",
     "skills": [
       "Agile Methodologies",
       "Technical Support",
@@ -686,7 +686,7 @@
     "isActive": false,
     "website": "https://cloud.google.com/careers",
     "categoryName": "Human Resources",
-    "oragnisationName": "Google Cloud",
+    "oragnisationName": "BMW",
     "skills": [
       "Google Cloud",
       "Cloud Computing",
@@ -777,7 +777,7 @@
     "isActive": true,
     "website": "https://99designs.com/blog/resources/what-is-graphic-design/",
     "categoryName": "Content Writing",
-    "oragnisationName": "Graphic Design",
+    "oragnisationName": "Creative Market",
     "skills": ["Azure", "Mobile Development", "Artificial Intelligence", "SQL"],
     "createdAt": "2025-07-03 19:28:26.482694",
     "updatedAt": "2025-07-01 12:12:12.121212"
@@ -817,7 +817,7 @@
     "isActive": false,
     "website": "https://photos.google.com/",
     "categoryName": "Human Resources",
-    "oragnisationName": "Google Photos",
+    "oragnisationName": "Microsoft Windows",
     "skills": [
       "JavaScript",
       "Blockchain",
@@ -864,7 +864,7 @@
     "isActive": true,
     "website": "https://cloud.google.com/careers",
     "categoryName": "Sales",
-    "oragnisationName": "Google Cloud",
+    "oragnisationName": "Dribbble",
     "skills": ["Machine Learning", "Copywriting", "Python", "Angular", "Azure"],
     "createdAt": "2025-07-03 19:28:26.482694",
     "updatedAt": "2025-07-01 15:15:15.151515"
@@ -1007,7 +1007,7 @@
     "isActive": false,
     "website": "https://www.facebook.com/facebooklove/",
     "categoryName": "Customer Support",
-    "oragnisationName": "Facebook Love",
+    "oragnisationName": "Facebook",
     "skills": [
       "Mobile Development",
       "Agile Methodologies",
@@ -1227,7 +1227,7 @@
     "isActive": true,
     "website": "https://careers.google.com/jobs/results/?company=Google%20Photos",
     "categoryName": "Research",
-    "oragnisationName": "Google Photos",
+    "oragnisationName": "Creative Market",
     "skills": [
       "Agile Methodologies",
       "Technical Support",
@@ -1390,7 +1390,7 @@
     "isActive": true,
     "website": "https://99designs.com/blog/resources/what-is-graphic-design/",
     "categoryName": "Content Writing",
-    "oragnisationName": "Graphic Design",
+    "oragnisationName": "Grooveshark",
     "skills": ["Azure", "Mobile Development", "Artificial Intelligence", "SQL"],
     "createdAt": "2025-07-04 19:00:00.000000",
     "updatedAt": "2025-07-04 19:00:00.000000"
@@ -1410,7 +1410,7 @@
     "isActive": true,
     "website": "https://cloud.google.com/careers/roles/devops-engineer",
     "categoryName": "Sales",
-    "oragnisationName": "Google Cloud",
+    "oragnisationName": "Creative Cloud",
     "skills": ["Machine Learning", "Copywriting", "Python", "Angular", "Azure"],
     "createdAt": "2025-07-04 20:00:00.000000",
     "updatedAt": "2025-07-04 20:00:00.000000"
@@ -1681,7 +1681,7 @@
     "isActive": true,
     "website": "https://careers.google.com/jobs/results/?company=Google%20Photos",
     "categoryName": "Human Resources",
-    "oragnisationName": "Google Photos",
+    "oragnisationName": "Bootstrap",
     "skills": [
       "JavaScript",
       "Blockchain",
@@ -1708,7 +1708,7 @@
     "isActive": true,
     "website": "https://cloud.google.com/careers/roles/technical-program-manager",
     "categoryName": "Human Resources",
-    "oragnisationName": "Google Cloud",
+    "oragnisationName": "Dribbble",
     "skills": [
       "Google Cloud",
       "Cloud Computing",
@@ -1792,7 +1792,7 @@
     "isActive": true,
     "website": "http://careers.example.com/senior-cybersecurity-analyst",
     "categoryName": "Healthcare",
-    "oragnisationName": "Facebook Messenger",
+    "oragnisationName": "Creative Cloud",
     "skills": [
       "Cybersecurity",
       "SIEM",
@@ -1848,7 +1848,7 @@
     "isActive": true,
     "website": "http://careers.example.ai/principal-ai-scientist",
     "categoryName": "Product Management",
-    "oragnisationName": "Facebook Messenger",
+    "oragnisationName": "Microsoft Windows",
     "skills": [
       "Artificial Intelligence",
       "Machine Learning",
@@ -1936,7 +1936,7 @@
     "isActive": true,
     "website": "http://design.example.com/lead-ux-ui-designer",
     "categoryName": "Design",
-    "oragnisationName": "Graphic Design",
+    "oragnisationName": "KFC",
     "skills": [
       "UX Design",
       "UI Design",
@@ -1965,7 +1965,7 @@
     "isActive": true,
     "website": "http://security.example.com/cloud-security-engineer",
     "categoryName": "Healthcare",
-    "oragnisationName": "Graphic Design",
+    "oragnisationName": "Salesforce",
     "skills": [
       "Cloud Security",
       "AWS",
@@ -1995,7 +1995,7 @@
     "isActive": true,
     "website": "http://data.example.com/director-data-science",
     "categoryName": "Data Science",
-    "oragnisationName": "Graphic Design",
+    "oragnisationName": "Visa",
     "skills": [
       "Data Science",
       "Machine Learning",
@@ -2237,7 +2237,7 @@
     "isActive": true,
     "website": "http://programs.example.com/principal-tpm",
     "categoryName": "Administration",
-    "oragnisationName": "Google Drive",
+    "oragnisationName": "Old Electrum",
     "skills": [
       "Program Management",
       "Technical Program Management",
@@ -2357,7 +2357,7 @@
     "isActive": true,
     "website": "http://docs.example.com/senior-technical-writer",
     "categoryName": "Content Writing",
-    "oragnisationName": "Google Cloud",
+    "oragnisationName": "Creative Cloud",
     "skills": [
       "Technical Writing",
       "Documentation",

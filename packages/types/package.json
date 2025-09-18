@@ -6,8 +6,7 @@
   "module": "./dist/main.mjs",
   "types": "./dist/main.d.ts",
   "scripts": {
-    "build": "tsup src/main.ts --format esm,cjs --dts",
-    "dev": "tsup src/main.ts --format esm,cjs --dts --watch"
+    "build": "tsup src/main.ts --format esm,cjs --dts"
   },
   "devDependencies": {
     "tsup": "^8.0.0",
