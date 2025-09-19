@@ -7,6 +7,7 @@ import {
   jobListingStatus,
   jobListingType,
 } from 'src/jobs/entities/schema';
+import { choice } from 'libs/random';
 
 export default async function seed(db: db) {
   await Promise.all(
@@ -20,6 +21,10 @@ export default async function seed(db: db) {
         createdAt,
         updatedAt,
         experienceLevel,
+        salaryFrom,
+        salaryTo,
+        currency,
+        currencySymbol,
         ...data
       } = listing;
       const [foundOrganisation] = await db
@@ -40,7 +45,14 @@ export default async function seed(db: db) {
           updatedAt: new Date(updatedAt),
           status: status as jobListingStatus,
           type: type as jobListingType,
+          workMode: choice(['remote', 'onsite', 'hybrid']),
           experienceLevel: experienceLevel as jobListingExperienceLevel,
+          salary: {
+            from: salaryFrom,
+            to: salaryTo,
+            currency,
+            currencySymbol: currencySymbol as string,
+          },
           ...data,
         })
         .returning();

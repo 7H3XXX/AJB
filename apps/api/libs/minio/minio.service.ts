@@ -21,6 +21,7 @@ export class MinioService {
       secretKey: options.secretKey,
       port: options.port ?? 9000,
       useSSL: options.useSSL ?? true,
+      pathStyle: true,
     });
     this.createBucket(options.bucketName, options.region ?? 'us-east-1')
       .then((resp) => {

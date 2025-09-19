@@ -1,16 +1,17 @@
 {
-  "$schema": "https://turborepo.com/schema.json",
-  "ui": "tui",
-  "globalEnv": ["DATABASE_SEEDING"],
+  "extends": ["//"],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "inputs": ["$TURBO_DEFAULT$"],
+      "passThroughEnv": ["*"],
+      "env": ["*"],
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "start": {
       "dependsOn": ["build"],
-      "inputs": [".env*"],
+      "passThroughEnv": ["*"],
+      "env": ["*"],
       "cache": true,
       "persistent": true
     },
@@ -23,16 +24,20 @@
     "dev": {
       "cache": false,
       "persistent": true,
-      "inputs": [".env*"],
-      "dependsOn": ["^build"]
+      "passThroughEnv": ["*"],
+      "env": ["*"]
     },
     "db:generate": {
       "cache": true,
-      "persistent": false
+      "persistent": false,
+      "passThroughEnv": ["*"],
+      "env": ["*"]
     },
     "db:migrate": {
       "cache": false,
-      "persistent": false
+      "persistent": false,
+      "passThroughEnv": ["*"],
+      "env": ["*"]
     }
   }
 }

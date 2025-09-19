@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { config } from 'dotenv';
 
 config({ path: '.env' });
@@ -14,8 +14,8 @@ export const envSchema = z.object({
 
   DEV_TEAM_EMAILS: z.string().transform((val) => val.split(',')),
 
-  LOGGER_COLORS: z.coerce.boolean().default(true),
-  LOGGER_JSON: z.coerce.boolean().default(false),
+  LOGGER_COLORS: z.stringbool().default(true),
+  LOGGER_JSON: z.stringbool().default(false),
 
   API_DOCS_PATH: z.string().default('v1/docs'),
 
@@ -29,7 +29,7 @@ export const envSchema = z.object({
   SMTP_PORT: z.coerce.number(),
   SMTP_USERNAME: z.string(),
   SMTP_PASSWORD: z.string(),
-  SMTP_SSL: z.coerce.boolean(),
+  SMTP_SSL: z.stringbool(),
 
   // DATABASE Configs
   DATABASE_NAME: z.string(),
@@ -37,15 +37,15 @@ export const envSchema = z.object({
   DATABASE_PWD: z.string(),
   DATABASE_HOST: z.string(),
   DATABASE_PORT: z.coerce.number().default(5432),
-  DATABASE_SSL: z.coerce.boolean().default(false),
+  DATABASE_SSL: z.stringbool().default(false),
   DEFAULT_PAGE_SIZE: z.coerce.number().default(25),
 
-  DATABASE_SEEDING: z.coerce.boolean().default(false),
+  DATABASE_SEEDING: z.stringbool().default(false),
 
   // MinIO Configs
   MINIO_HOST: z.string(),
   MINIO_PORT: z.coerce.number(),
-  MINIO_SSL: z.coerce.boolean().default(true),
+  MINIO_SSL: z.stringbool().default(true),
   MINIO_ACCESS_KEY: z.string(),
   MINIO_SECRET_KEY: z.string(),
   MINIO_DEFAULT_BUCKET: z.string(),
@@ -54,6 +54,9 @@ export const envSchema = z.object({
   // JWT Configs
   JWT_SECRET: z.string().default('3a0ef9ac-93ed-4f5e-a4df-838b602a19cf'),
   JWT_EXPIRY: z.string().default('3d'),
+
+  // Sentry Configs
+  SENTRY_DSN: z.string().default(''),
 });
 
 export type Env = z.infer<typeof envSchema>;

@@ -9,7 +9,11 @@ import {
   IsUUID,
 } from 'class-validator';
 import { PaginatedDto } from 'src/common/utils/paginated.utils';
-import { jobListingExperienceLevel, jobListingType } from '../entities/schema';
+import {
+  jobListingExperienceLevel,
+  jobListingType,
+  jobListingWorkMode,
+} from '../entities/schema';
 import * as ms from 'ms';
 
 export class PublicJobListingFilterDto extends PaginatedDto {
@@ -42,6 +46,16 @@ export class PublicJobListingFilterDto extends PaginatedDto {
     return values;
   })
   experienceLevels?: jobListingExperienceLevel[];
+
+  @IsArray()
+  @IsString({ each: true })
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @Transform(({ value }: { value: string | string[] }) => {
+    const values = typeof value === 'string' ? [value] : value;
+    return values;
+  })
+  workModes?: jobListingWorkMode[];
 
   @IsArray()
   @ApiProperty({ required: false })

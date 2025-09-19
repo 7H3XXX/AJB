@@ -17,13 +17,19 @@ export const experienceLevelEnum = pg.pgEnum('job_experience_level', [
   'expert',
 ]);
 
-export const listingTypeEnum = pg.pgEnum('jobListing_type', [
+export const listingTypeEnum = pg.pgEnum('job_listing_type', [
   'full-time',
   'part-time',
   'freelance',
   'seasonal',
   'contract',
   'fixed-price',
+]);
+
+export const listingWorkModeEnum = pg.pgEnum('job_listing_work_mode', [
+  'remote',
+  'onsite',
+  'hybrid',
 ]);
 
 export const listingStatusEnum = pg.pgEnum('job_listing_status', [
@@ -45,18 +51,28 @@ export type jobListingExperienceLevel = NonNullable<
   InferSelectModel<typeof jobListing>['experienceLevel']
 >;
 
+export type jobListingWorkMode = NonNullable<
+  InferSelectModel<typeof jobListing>['workMode']
+>;
+
+export type jobListingSalary = {
+  from: number;
+  to: number;
+  currency: string;
+  currencySymbol: string;
+};
+
 export const jobListing = pg.pgTable('job_listing', {
   ...baseSchema,
   title: pg.text().notNull(),
   description: pg.text(),
   requirements: pg.text(),
-  salaryFrom: pg.decimal({ precision: 12, scale: 2, mode: 'number' }),
-  salaryTo: pg.decimal({ precision: 12, scale: 2, mode: 'number' }),
-  currency: pg.varchar({ length: 3 }).default('USD'),
+  salary: pg.jsonb().$type<jobListingSalary>(),
   country: pg.text(),
   city: pg.text(),
   experienceLevel: experienceLevelEnum(),
   type: listingTypeEnum(),
+  workMode: listingWorkModeEnum(),
   status: listingStatusEnum(),
   isActive: pg.boolean().default(false),
   website: pg.text(),

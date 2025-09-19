@@ -7,8 +7,8 @@ import {
   gte,
   ilike,
   inArray,
-  lte,
   or,
+  sql,
   SQL,
 } from 'drizzle-orm';
 import { DBSchema } from 'src/database/schemas';
@@ -17,7 +17,7 @@ import {
   InjectDatabase,
   PageOptions,
   pgEnumToObject,
-  TableColumns,
+  withColumns,
   withQueryColumns,
 } from 'src/database/utils';
 import {
@@ -32,16 +32,17 @@ import {
 
 @Injectable()
 export class JobsService {
-  public readonly dataFields: TableColumns<typeof DBSchema.jobListing> = [
+  public readonly dataFields = withColumns(DBSchema.jobListing, [
     'createdAt',
     'title',
     'type',
     'city',
     'country',
-    'salaryFrom',
-    'salaryTo',
+    'salary',
     'experienceLevel',
-  ];
+    'workMode',
+  ]);
+
   constructor(@InjectDatabase private readonly db: Database) {}
   async findJobListingById(id: string) {
     const foundJob = await this.db.query.jobListing.findFirst({
@@ -73,7 +74,8 @@ export class JobsService {
       where: eq(DBSchema.jobListing.id, id),
     });
     if (!foundJob) return null;
-    const { jobToSkills, ...jobData } = foundJob;
+    const { jobToSkills, categoryId, createdById, organisationId, ...jobData } =
+      foundJob;
     return {
       skills: jobToSkills.map((value) => ({
         id: value.jobSkill?.id,
@@ -89,6 +91,9 @@ export class JobsService {
   ) {
     const conditions: (SQL<unknown> | undefined)[] = [];
     // query filters
+    if (options.workModes) {
+      conditions.push(inArray(DBSchema.jobListing.workMode, options.workModes));
+    }
     if (options.isActive) {
       conditions.push(eq(DBSchema.jobListing.isActive, options.isActive));
     }
@@ -139,10 +144,14 @@ export class JobsService {
       );
     }
     if (options.salaryFrom) {
-      conditions.push(gte(DBSchema.jobListing.salaryFrom, options.salaryFrom));
+      conditions.push(
+        sql`(${DBSchema.jobListing.salary} ->> 'from')::numeric >= ${options.salaryFrom}`,
+      );
     }
     if (options.salaryTo) {
-      conditions.push(lte(DBSchema.jobListing.salaryFrom, options.salaryTo));
+      conditions.push(
+        sql`(${DBSchema.jobListing.salary} ->> 'to')::numeric <= ${options.salaryTo}`,
+      );
     }
     if (options.organisationId) {
       conditions.push(
@@ -160,10 +169,9 @@ export class JobsService {
         'title',
         'city',
         'country',
-        'salaryFrom',
-        'salaryTo',
-        'currency',
+        'salary',
         'type',
+        'workMode',
       ]),
       with: {
         category: {
