@@ -12,6 +12,8 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import { Request } from 'express';
 import { AuthRole, AuthUser } from '../auth.interface';
+import { ApiErrorCodes } from '@repo/types';
+import { UserRolesService } from 'src/users/users-roles.service';
 
 export interface RolesGuardOptions {
   allow?: AuthRole['role'][];
@@ -30,8 +32,9 @@ export function RolesGuard(
       private readonly reflector: Reflector,
       jwtService: JwtService,
       userService: UsersService,
+      userRolesService: UserRolesService,
     ) {
-      super(jwtService, userService);
+      super(jwtService, userRolesService, userService);
     }
 
     async canActivate(context: ExecutionContext): Promise<boolean> {
@@ -53,9 +56,10 @@ export function RolesGuard(
       );
 
       if (!isAuthorized) {
-        throw new ForbiddenException(
-          `Access denied: your role does not have permission to perform this action. Required roles: [${options.allow?.join(', ') || null}], denied roles: [${options.deny?.join(', ') || null}].`,
-        );
+        throw new ForbiddenException({
+          message: `Access denied: your role does not have permission to perform this action. Required roles: [${options.allow?.join(', ') || null}], denied roles: [${options.deny?.join(', ') || null}].`,
+          errorCode: ApiErrorCodes.PERMISSION_DENIED,
+        });
       }
 
       return isAuthorized;

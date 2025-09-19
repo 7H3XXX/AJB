@@ -10,6 +10,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JobsService } from '../jobs.service';
 import { getLimitAndOffset, paginate } from 'src/common/utils/paginated.utils';
 import { PublicJobListingFilterDto } from '../dto/job-listings.dto';
+import { ApiErrorCodes } from '@repo/types';
 
 @Controller('public/job-listings')
 @ApiTags('public job listings')
@@ -38,7 +39,10 @@ export class PublicJobListingController {
   async getPublicJobListingById(@Param('id', ParseUUIDPipe) id: string) {
     const foundJob = await this.jobsService.findJobListingById(id);
     if (!foundJob) {
-      throw new NotFoundException(`No job found with a matching id: ${id}`);
+      throw new NotFoundException({
+        message: `No job found with a matching id: ${id}`,
+        errorCode: ApiErrorCodes.JOB_LISTING_NOT_FOUND,
+      });
     }
     return {
       status: true,

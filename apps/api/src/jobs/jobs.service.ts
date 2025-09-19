@@ -32,21 +32,17 @@ import {
 
 @Injectable()
 export class JobsService {
-  defaultJobListingSelect: TableColumns<typeof DBSchema.jobListing>;
-
-  constructor(@InjectDatabase private readonly db: Database) {
-    this.defaultJobListingSelect = [
-      'createdAt',
-      'title',
-      'type',
-      'city',
-      'country',
-      'salaryFrom',
-      'salaryTo',
-      'experienceLevel',
-    ];
-  }
-
+  public readonly dataFields: TableColumns<typeof DBSchema.jobListing> = [
+    'createdAt',
+    'title',
+    'type',
+    'city',
+    'country',
+    'salaryFrom',
+    'salaryTo',
+    'experienceLevel',
+  ];
+  constructor(@InjectDatabase private readonly db: Database) {}
   async findJobListingById(id: string) {
     const foundJob = await this.db.query.jobListing.findFirst({
       with: {
@@ -86,7 +82,6 @@ export class JobsService {
       ...jobData,
     };
   }
-
   async findAllJobListings(
     options: PageOptions &
       Partial<PublicJobListingFilterDto> &
@@ -196,7 +191,6 @@ export class JobsService {
       .where(and(...conditions));
     return { items, totalItems: result.totalItems };
   }
-
   // Job Misc.
   async findAllCategories() {
     return await this.db.query.jobCategory.findMany({

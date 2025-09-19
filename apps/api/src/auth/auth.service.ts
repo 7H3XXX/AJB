@@ -4,17 +4,17 @@ import { Database, InjectDatabase, withColumns } from 'src/database/utils';
 import { SignInDto } from './dto/auth.dto';
 import { DBSchema } from 'src/database/schemas';
 import { eq } from 'drizzle-orm';
-import { UsersService } from 'src/users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import * as ms from 'ms';
 import { env } from 'env.config';
+import { UserRolesService } from 'src/users/users-roles.service';
 
 @Injectable()
 export class AuthService {
   logger = new Logger(AuthService.name);
   constructor(
     @InjectDatabase private readonly db: Database,
-    private readonly userService: UsersService,
+    private readonly userRolesService: UserRolesService,
     private readonly jwtService: JwtService,
   ) {}
 
@@ -66,7 +66,7 @@ export class AuthService {
     }
     return {
       user: userData,
-      roles: await this.userService.getRolesByUserId(user.id),
+      roles: await this.userRolesService.getRolesByUserId(user.id),
     };
   }
 

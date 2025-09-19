@@ -5,6 +5,7 @@ import {
 } from '@nestjs/common';
 import { Request } from 'express';
 import { AuthRole } from '../auth.interface';
+import { ApiErrorCodes } from '@repo/types';
 
 export const GetRoles = createParamDecorator(
   (data: unknown, ctx: ExecutionContext) => {
@@ -13,9 +14,11 @@ export const GetRoles = createParamDecorator(
       .getRequest();
     const { roles } = request;
     if (!roles) {
-      throw new BadRequestException(
-        'Missing user roles in request. Authentication required. [ERR_CODE-2112]',
-      );
+      throw new BadRequestException({
+        message:
+          'Missing user roles in request. Authentication required. [ERR_CODE-2112]',
+        errorCode: ApiErrorCodes.AUTHENTICATION_REQUIRED,
+      });
     }
     return roles;
   },

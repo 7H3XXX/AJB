@@ -15,6 +15,7 @@ import { ProfileImageDto, SignInDto } from './dto/auth.dto';
 import { GetUser } from './decorators/user.decorator';
 import { AuthUser } from './auth.interface';
 import { AuthGuard } from './guards/auth.guard';
+import { ApiErrorCodes } from '@repo/types';
 
 @Controller('auth')
 @ApiTags('authentication')
@@ -44,9 +45,10 @@ export class AuthController {
   async postAuthSignIn(@Body() { email, password }: SignInDto) {
     const authData = await this.authService.validateUser({ email, password });
     if (!authData) {
-      throw new UnauthorizedException(
-        'User authentication failed. Invalid username or password',
-      );
+      throw new UnauthorizedException({
+        message: 'User authentication failed. Invalid username or password',
+        errorCode: ApiErrorCodes.INVALID_CREDENTIALS,
+      });
     }
     const access = await this.authService.generateSignedToken({
       userId: authData.user.id,
